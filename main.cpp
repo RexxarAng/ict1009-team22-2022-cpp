@@ -1,6 +1,16 @@
 #include <iostream>
+#include <string>
+#include "menu_item.h"
+#include "main.h"
+
+using namespace std;
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    
+    displayMainMenu();
+
+    return 0;
+
 }
