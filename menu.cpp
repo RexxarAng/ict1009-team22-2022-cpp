@@ -1,6 +1,11 @@
 #include "menu_item.h"
 #include <iostream>
-
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include "movie.h"
+#include "Menu.h"
 using namespace std;
 
 void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity)
@@ -17,6 +22,7 @@ void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity)
     cout << endl << "Enter selection: ";
     unsigned int selection;
     cin >> selection;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
     for (i = 0; i < item_quantity; ++i)
     {
         if (selection == p_menu[i].number)
@@ -32,22 +38,29 @@ void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity)
     }
 }
 
-//  Forward declarations
-void viewMovies();
-void viewBookings();
-void viewSomething();
-void quit();
 Menu_Item main_menu[] =
 {
     {1, "View Movies", viewMovies},
     {2, "View Bookings", viewBookings},
     {3, "View Something", viewSomething},
+    {4, "Admin", displayAdminMenu},
+    {5, "Quit", quit}
+};
+
+static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
+
+Menu_Item admin_main_menu[] =
+{
+    {1, "Add Movies", addMovies},
+    {2, "Add Shows", addShows},
+    {3, "Back", displayMainMenu},
     {4, "Quit", quit}
 };
 
+static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
+
 void displayMainMenu() {
-  
-    static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
+    system("cls");
     cout << "Movie Booking System" << endl;
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;
@@ -55,23 +68,10 @@ void displayMainMenu() {
     Menu_Engine(&main_menu[0], main_menu_size);
 }
 
-
-void viewMovies() {
+void displayAdminMenu() {
     system("cls");
-    cout << "View Movie not implemented yet" << endl;
-    
-}
-
-void viewBookings() {
-    system("cls");
-    cout << "View Booking not implemented yet" << endl;
-}
-
-void viewSomething() {
-    system("cls");
-    cout << "Not sure what this is yet" << endl;
-}
-
-void quit() {
-    cout << "Thank you for using this movie booking system." << endl;
+    cout << "Admin Movie Booking System" << endl;
+    cout << "==============================" << endl;
+    cout << "Main Menu" << endl;
+    Menu_Engine(&admin_main_menu[0], admin_menu_size);
 }
