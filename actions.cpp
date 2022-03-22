@@ -22,7 +22,9 @@ void viewMovies() {
     }
     else {
         cout << "No movies currently showing" << endl;
-    }  
+    }
+    pause();
+    displayMainMenu();
 }
 
 void viewBookings() {

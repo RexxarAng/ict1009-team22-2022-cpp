@@ -1,19 +1,10 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <list>
-#include <sstream>
-#include "menu.h"
-#include "movie.h"
 #include "main.h"
-#include "file.h"
 
 using namespace std;
 
 extern list<Movie*>movies;
 
-list<Movie*> loadMovies() {
+void loadMovies() {
     ifstream movieCatalogFile;
     vector<string> row;
     string word, line;
@@ -47,15 +38,28 @@ list<Movie*> loadMovies() {
             cout << i->getTitle() << endl;
         }
         movieCatalogFile.close();
-
-        return movies;
     }
 }
 
+//list<Show*> loadShows() {
+//
+//}
+
 int main()
 {
-    loadMovies();
-    displayMainMenu();
+
+    //loadMovies();
+    //displayMainMenu();
+    Hall a(12, 3);
+    a.bookSeat(2, 4);
+    a.bookSeat(2, 5);
+
+    a.bookSeat(3, 1);
+    a.bookSeat(3, 2);
+
+    a.showSeatingPlan();
+
+    pause();
 
     return 0;
 

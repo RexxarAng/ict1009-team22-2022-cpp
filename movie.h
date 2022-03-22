@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <list>
+#include "show.h"
 
 using namespace std;
 
@@ -9,6 +11,7 @@ private:
 	string desc;
 	string genre;
 	int duration;
+	list<Show> shows;
 public:
 	Movie(string, string, string, int);
 	string getTitle();
