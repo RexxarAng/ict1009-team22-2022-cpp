@@ -1,11 +1,11 @@
 #pragma once
-
 class Hall {
 private:
 	int id;
 	int noOfRows;
 	int noOfCols;
 	bool** seating;
+	void printHallId();
 	void printScreen();
 	void printLegend();
 public:

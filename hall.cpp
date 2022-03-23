@@ -1,7 +1,10 @@
 #include "hall.h"
-#include "colors.h"
+#include <string>
+#include <iostream>
 
-void printColor(string, int);
+using namespace std;
+
+void printColor(string, int=0);
 int Hall::current_id = 0;
 
 Hall::Hall(int noOfRows, int noOfCols) {
@@ -21,6 +24,7 @@ int Hall::getId() {
 }
 
 void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) {
+	printHallId();
 	printScreen();
 
 	if (showColumnInformation) {
@@ -70,6 +74,22 @@ bool Hall::bookSeat(int row, int column) {
 	seating[row][column] = false;
 	cout << "Successfully booked " << (char)('A' + row) << column << endl;
 	return true;
+}
+
+void Hall::printHallId() {
+	string hallId = "Hall " + to_string(this->id);
+	int lengthOfScreen = noOfCols * 5;
+	int lengthOfWord = size(hallId);
+	int halfDashes = (lengthOfScreen - lengthOfWord) / 2;
+	cout << "    ";
+	for (int c = 0; c < halfDashes - 1; c++) {
+		cout << " ";
+	}
+	printColor(hallId, -1);
+	for (int c = 0; c < lengthOfScreen - halfDashes - lengthOfWord - 1; c++) {
+		cout << " ";
+	}
+	cout << endl << endl;
 }
 
 void Hall::printScreen() {

@@ -1,5 +1,4 @@
 #include "main.h"
-
 using namespace std;
 
 extern list<Movie*>movies;
@@ -50,14 +49,18 @@ int main()
 
     //loadMovies();
     //displayMainMenu();
-    Hall a(12, 3);
-    a.bookSeat(2, 4);
-    a.bookSeat(2, 5);
+    Hall a(12, 6);
+    string movieName = "Venom";
+    time_t now = time(0);
+    tm localtm = *localtime(&now);
+    Show s(movieName, localtm, a);
+    //a.bookSeat(2, 4);
+    //a.bookSeat(2, 5);
 
-    a.bookSeat(3, 1);
-    a.bookSeat(3, 2);
+    //a.bookSeat(3, 1);
+    //a.bookSeat(3, 2);
 
-    a.showSeatingPlan();
+    s.showHallSeatingPlan();
 
     pause();
 

@@ -1,4 +1,5 @@
 #pragma once
+
 typedef void (*Menu_Processing_Function_Ptr)();
 
 class Menu_Item {

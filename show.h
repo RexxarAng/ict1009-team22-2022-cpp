@@ -1,13 +1,19 @@
 #pragma once
-#include <string>
 #include <ctime>
-#include <sstream>
+#include <string>
+#include "hall.h"
 using namespace std;
 
 class Show {
 private:
 	string title;
-	tm dateOfShow;
+	tm date;
+	Hall hallOfShow;
 public:
-	
+	Show(string, tm, Hall);
+	string getTitle();
+	int getHallId();
+	void showHallSeatingPlan();
+	tm getDate();
 };
+
