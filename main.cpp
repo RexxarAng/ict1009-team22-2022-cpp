@@ -48,7 +48,6 @@ void loadMovies() {
 
 int main()
 {
-
     //loadMovies();
     //displayMainMenu();
     Hall a(12, 6);
