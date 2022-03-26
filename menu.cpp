@@ -60,7 +60,7 @@ Menu_Item admin_main_menu[] =
 static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
 
 void displayMainMenu() {
-    system("cls");
+    clearScreen();
     cout << "Movie Booking System" << endl;
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;
@@ -69,9 +69,17 @@ void displayMainMenu() {
 }
 
 void displayAdminMenu() {
-    system("cls");
+    clearScreen();
     cout << "Admin Movie Booking System" << endl;
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;
     Menu_Engine(&admin_main_menu[0], admin_menu_size);
+}
+
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }

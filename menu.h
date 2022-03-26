@@ -18,3 +18,4 @@ void displayMainMenu();
 //void addMovies();
 void addShows();
 //void pause();
+void clearScreen();

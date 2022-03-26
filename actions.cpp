@@ -14,7 +14,7 @@
 extern list<Movie*> movies;
 
 void viewMovies() {
-    system("cls");
+    clearScreen();
 
     if (movies.size() > 0) {
         cout << "Movies now showing: " << endl;
@@ -30,12 +30,12 @@ void viewMovies() {
 }
 
 void viewBookings() {
-    system("cls");
+    clearScreen();
     cout << "View Booking not implemented yet" << endl;
 }
 
 void viewSomething() {
-    system("cls");
+    clearScreen();
     cout << "Not sure what this is yet" << endl;
 }
 
@@ -99,7 +99,7 @@ void addMovies() {
 }
 
 void addShows() {
-    system("cls");
+    clearScreen();
 
 }
 

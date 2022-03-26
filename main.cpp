@@ -49,7 +49,7 @@ void loadMovies() {
 int main()
 {
     //loadMovies();
-    //displayMainMenu();
+    displayMainMenu();
     Hall a(12, 6);
     string movieName = "Venom";
     time_t now = time(0);
