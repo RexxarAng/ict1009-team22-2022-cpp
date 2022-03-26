@@ -11,11 +11,6 @@ void printColor(string text, int style) {
     cout << text;
     SetConsoleTextAttribute(hConsole, 7);
 }
-#elif __unix__
-void printColor(string text, int style) {
-    cout << text;
-}
-cout << "unix";
 #else
 void printColor(string text, int style) {
     int font_style = 21;
