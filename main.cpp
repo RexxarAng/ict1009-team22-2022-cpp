@@ -1,7 +1,9 @@
 #include "main.h"
+#include "movie_repo.h"
+
 using namespace std;
 
-extern list<Movie*>movies;
+//extern list<Movie*>movies;
 
 void loadMovies() {
     ifstream movieCatalogFile;

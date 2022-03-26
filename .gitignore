@@ -5,3 +5,5 @@
 *.user
 .vs/
 Debug/
+/.idea/
+/cmake-build-debug/

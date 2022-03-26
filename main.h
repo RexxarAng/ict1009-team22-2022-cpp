@@ -14,6 +14,5 @@
 #include "hall.h"
 #include "show.h"
 #include "colors.h"
-
-
-list<Movie*> movies;
+#include "actions.h"
+#include "movie_repo.h"

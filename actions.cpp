@@ -4,6 +4,8 @@
 #include <vector>
 #include <sstream>
 #include <list>
+
+#include "actions.h"
 #include "movie.h"
 #include "menu.h"
 #include "menu_item.h"
