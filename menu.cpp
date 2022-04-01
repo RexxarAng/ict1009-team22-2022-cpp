@@ -40,9 +40,9 @@ void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity)
 
 Menu_Item main_menu[] =
 {
-    {1, "View Movies", viewMovies},
-    {2, "View Bookings", viewBookings},
-    {3, "View Something", viewSomething},
+    {1, "Browse Catalog", viewMovies},
+    {2, "Buy Tickets", viewSomething},
+    {3, "View Bookings", viewBookings},
     {4, "Admin", displayAdminMenu},
     {5, "Quit", quit}
 };
@@ -61,15 +61,18 @@ static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(adm
 
 void displayMainMenu() {
     system("cls");
-    cout << "Movie Booking System" << endl;
-    cout << "==============================" << endl;
-    cout << "Main Menu" << endl;
+    cout << "=================================" << endl;
+    cout << "Chaw Theatre Movie Booking System" << endl;
+    cout << "=================================" << endl << endl;
+    cout << "Welcome to Chaw Theatres! " << endl;
+    cout << "What would you like to do today?" << endl << endl;;
     // Process the menu
     Menu_Engine(&main_menu[0], main_menu_size);
 }
 
 void displayAdminMenu() {
     system("cls");
+    cout << "==============================" << endl;
     cout << "Admin Movie Booking System" << endl;
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;

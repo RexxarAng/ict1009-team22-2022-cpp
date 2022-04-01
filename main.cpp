@@ -44,11 +44,9 @@ void loadMovies() {
 //
 //}
 
-int main()
-{
-
+int main(){
     //loadMovies();
-    //displayMainMenu();
+    displayMainMenu();
     Hall a(12, 6);
     string movieName = "Venom";
     time_t now = time(0);
@@ -60,7 +58,7 @@ int main()
     //a.bookSeat(3, 1);
     //a.bookSeat(3, 2);
 
-    s.showHallSeatingPlan();
+//  s.showHallSeatingPlan();
 
     pause();
 
