@@ -5,11 +5,10 @@
 #include <vector>
 #include <sstream>
 #include "movie.h"
-#include "Menu.h"
+#include "menu.h"
 using namespace std;
 
-void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity)
-{
+void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity){
     unsigned int i = 0;
     // Display the menu
     for (i = 0; i < item_quantity; ++i)

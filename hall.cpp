@@ -79,7 +79,7 @@ bool Hall::bookSeat(int row, int column) {
 void Hall::printHallId() {
 	string hallId = "Hall " + to_string(this->id);
 	int lengthOfScreen = noOfCols * 5;
-	int lengthOfWord = size(hallId);
+	int lengthOfWord = (int)size(hallId);
 	int halfDashes = (lengthOfScreen - lengthOfWord) / 2;
 	cout << "    ";
 	for (int c = 0; c < halfDashes - 1; c++) {
@@ -94,7 +94,7 @@ void Hall::printHallId() {
 
 void Hall::printScreen() {
 	string screen = "SCREEN";
-	int lengthOfWord = size(screen);
+	int lengthOfWord = (int)size(screen);
 	int lengthOfScreen = noOfCols * 5;
 	int halfDashes = (lengthOfScreen - lengthOfWord) / 2;
 	printColor("   +", -1);
