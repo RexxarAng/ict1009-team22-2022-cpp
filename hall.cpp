@@ -16,7 +16,6 @@ Hall::Hall(int noOfRows, int noOfCols) {
 	for (int i = 0; i < noOfRows; i++) {
 		seating[i] = new bool[noOfCols];
 	}
-
 }
 
 int Hall::getId() {
@@ -58,8 +57,6 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 	}
 	cout << endl;
 	printLegend();
-
-
 }
 
 bool Hall::bookSeat(int row, int column) {

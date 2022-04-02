@@ -9,7 +9,49 @@
 #include "menu_item.h"
 #include "file.h"
 
-extern list<Movie*> movies;
+extern list<Movie*> movies; //a list of loaded movies
+
+using namespace std;
+void loadMovies() {
+    cout << "DEBUG: opening loadMovies()" << endl;
+    ifstream movieCatalogFile;
+    vector<string> row;
+    string word, line;
+    string fileOpenError = "File failed to open.";
+    try{
+        movieCatalogFile.open(MOVIE_FILE);
+        if (movieCatalogFile.fail()) throw (fileOpenError);
+    }
+    catch(string fileOpenError){
+        cout << "ERROR: " << fileOpenError << endl;
+        cout << "No movies loaded" << endl;
+        pause();
+    }
+    cout << "DEBUG: loadMovies suceeded" << endl;
+    while (!movieCatalogFile.eof()) {
+        row.clear();
+        getline(movieCatalogFile, line);
+        stringstream s(line);
+        while (getline(s, word, ',')) {
+            row.push_back(word);
+        }
+        if (row.size() == 4) {
+            string movieName = row[0];
+            string movieDes = row[1];
+            string movieGenre = row[2];
+            int movieDuration = stoi(row[3]);
+            Movie* newMovie = new Movie(movieName, movieDes, movieGenre, movieDuration);
+            movies.insert(movies.begin(), newMovie);
+        }
+
+        if (movieCatalogFile.eof())
+            break;
+    }
+    for (Movie* i : movies) {
+        cout << i->getTitle() << endl;
+    }
+    movieCatalogFile.close();
+}
 
 void viewMovies() {
     system("cls");
@@ -98,7 +140,6 @@ void addMovies() {
 
 void addShows() {
     system("cls");
-
 }
 
 void pause() {
@@ -106,3 +147,5 @@ void pause() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
 }
+
+

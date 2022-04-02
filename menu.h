@@ -8,6 +8,7 @@ void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity);
 
 void displayMainMenu();
 
+void loadMovies();
 void viewMovies();
 void viewBookings();
 void viewSomething();
