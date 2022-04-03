@@ -7,3 +7,8 @@
 Debug/
 /.idea/
 /cmake-build-debug/
+/CMakeFiles/
+/.cmake/
+/.ninja_deps
+/.ninja_log
+/build.ninja

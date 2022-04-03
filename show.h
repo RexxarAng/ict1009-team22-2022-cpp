@@ -7,7 +7,7 @@ using namespace std;
 class Show {
 private:
 	string title;
-	tm date;
+	tm date{};
 	Hall hallOfShow;
 public:
 	Show(string, tm, Hall);
@@ -15,5 +15,6 @@ public:
 	int getHallId();
 	void showHallSeatingPlan();
 	tm getDate();
+    Hall* getHall();
 };
 

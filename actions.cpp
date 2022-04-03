@@ -3,23 +3,39 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <list>
 
 #include "actions.h"
 #include "movie.h"
+#include "show.h"
 #include "menu.h"
 #include "menu_item.h"
 #include "file.h"
+#include "colors.h"
 
-extern list<Movie*> movies;
+extern vector<Movie*> movies;
 
 void viewMovies() {
     clearScreen();
 
     if (movies.size() > 0) {
+        int movieIndex = 1;
         cout << "Movies now showing: " << endl;
+        cout << "==============================" << endl;
         for (Movie* i : movies) {
-            cout << i->getTitle() << endl;
+            cout << movieIndex << ") " << i->getTitle() << endl;
+            movieIndex ++;
+        }
+
+        cout << "Please select the movies by index: ";
+        unsigned int selection;
+        cin >> selection;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+        if (selection > 0 && selection <= movies.size()) {
+            cout << "You have selected " << movies[selection-1]->getTitle() << endl;
+            viewShowTimesByMovie(movies[selection-1]);
+        }
+        else {
+            cout << "Invalid option, please try again." << endl;
         }
     }
     else {
@@ -27,6 +43,80 @@ void viewMovies() {
     }
     pause();
     displayMainMenu();
+}
+
+void viewShowTimesByMovie(Movie* movie) {
+    unsigned int selection;
+
+    while (true) {
+        clearScreen();
+        cout << movie->getTitle() << endl;
+        cout << "==============================" << endl;
+        cout << "Today " << endl;
+        cout << "1) Timeslot 1" << endl;
+        cout << "2) Timeslot 2" << endl;
+        cout << "3) Timeslot 3" << endl;
+        cout << "Please selected the option:";
+
+        cin >> selection;
+        if (!cin.fail()) break;
+        cin.clear(); // get rid of failure state
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        printColor("ERROR -- You did not enter an integer\n", 2);
+        pause();
+    }
+    cout << "You have selected " << selection << endl;
+
+    // TODO: Mock showtime
+    Hall a(12, 12);
+    string movieName = movie->getTitle();
+    time_t now = time(0);
+    tm localtm = *localtime(&now);
+    Show s(movieName, localtm, a);
+    viewBookingByShowTime(&s);
+}
+
+void viewBookingByShowTime(Show* showtime) {
+    string selection;
+
+    while (true) {
+        showtime->showHallSeatingPlan();
+
+        cout << "==============================" << endl;
+        cout << "Book any seat numbers" << endl;
+        cout << "q) Back" << endl;
+        cout << "Please selected the option:";
+
+        cin >> selection;
+        if (cin.fail()) {
+            cin.clear(); // get rid of failure state
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            printColor("ERROR -- Invalid option\n", 2);
+            pause();
+        }
+        else if (selection == "q") {
+            break;
+        }
+        else {
+            if (selection.size() < 2) {
+                printColor("ERROR -- Invalid seat number, please try again\n", 2);
+                pause();
+            }
+            int column = (int)(unsigned char)selection[0] - (int)('A');
+            int row = stoi(selection.substr(1, selection.size()-1));
+
+            cout << "Booking " << column << ":" << row << endl;
+            if (showtime->getHall()->bookSeat(column, row)) {
+                printColor("You have booked " + selection + "\n");
+                pause();
+            }
+            else {
+                printColor("Invalid option : " + selection + ", Please try again.\n", 2);
+                pause();
+            }
+        }
+    }
+
 }
 
 void viewBookings() {
@@ -41,6 +131,43 @@ void viewSomething() {
 
 void quit() {
     cout << "Thank you for using this movie booking system." << endl;
+}
+
+void loadMovies() {
+    ifstream movieCatalogFile;
+    vector<string> row;
+    string word, line;
+    movieCatalogFile.open(MOVIE_FILE);
+    if (!movieCatalogFile) {
+        cout << "No movies loaded" << endl;
+        pause();
+    }
+    else {
+        cout << "Here are the movies that are showing " << endl;
+        while (!movieCatalogFile.eof()) {
+            row.clear();
+            getline(movieCatalogFile, line);
+            stringstream s(line);
+            while (getline(s, word, ',')) {
+                row.push_back(word);
+            }
+            if (row.size() == 4) {
+                string movieName = row[0];
+                string movieDes = row[1];
+                string movieGenre = row[2];
+                int movieDuration = stoi(row[3]);
+                Movie* newMovie = new Movie(movieName, movieDes, movieGenre, movieDuration);
+                movies.insert(movies.begin(), newMovie);
+            }
+
+            if (movieCatalogFile.eof())
+                break;
+        }
+        for (Movie* i : movies) {
+            cout << i->getTitle() << endl;
+        }
+        movieCatalogFile.close();
+    }
 }
 
 void addMovies() {
@@ -106,5 +233,5 @@ void addShows() {
 void pause() {
     cout << endl << "Press <Enter> to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cin.get();
+//    cin.get();
 }

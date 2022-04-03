@@ -1,5 +1,5 @@
 #pragma once
-#include <list>
+#include <vector>
 #include "movie.h"
 
-list<Movie*> movies;
+vector<Movie*> movies;

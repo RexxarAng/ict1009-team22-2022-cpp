@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity);
+void openMenu(MenuItem* p_menu, unsigned int item_quantity);
 
 void displayMainMenu();
 

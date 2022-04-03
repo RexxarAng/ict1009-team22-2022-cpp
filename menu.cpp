@@ -8,7 +8,7 @@
 #include "menu.h"
 using namespace std;
 
-void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity)
+void openMenu(MenuItem* p_menu, unsigned int item_quantity)
 {
     unsigned int i = 0;
     // Display the menu
@@ -38,7 +38,7 @@ void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity)
     }
 }
 
-Menu_Item main_menu[] =
+MenuItem main_menu[] =
 {
     {1, "View Movies", viewMovies},
     {2, "View Bookings", viewBookings},
@@ -49,7 +49,7 @@ Menu_Item main_menu[] =
 
 static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
 
-Menu_Item admin_main_menu[] =
+MenuItem admin_main_menu[] =
 {
     {1, "Add Movies", addMovies},
     {2, "Add Shows", addShows},
@@ -65,7 +65,7 @@ void displayMainMenu() {
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;
     // Process the menu
-    Menu_Engine(&main_menu[0], main_menu_size);
+    openMenu(&main_menu[0], main_menu_size);
 }
 
 void displayAdminMenu() {
@@ -73,7 +73,7 @@ void displayAdminMenu() {
     cout << "Admin Movie Booking System" << endl;
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;
-    Menu_Engine(&admin_main_menu[0], admin_menu_size);
+    openMenu(&admin_main_menu[0], admin_menu_size);
 }
 
 void clearScreen() {

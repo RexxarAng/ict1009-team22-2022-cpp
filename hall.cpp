@@ -47,7 +47,7 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 		for (int c = 0; c < noOfCols; c++) {
 			printColor("[", -1);
 			// is booked
-			if (!seating[r][c]) {
+			if (seating[r][c]) {
 				printColor(" x ", 2);
 			}
 			else {
@@ -68,16 +68,16 @@ bool Hall::bookSeat(int row, int column) {
 		cout << "Invalid seat" << endl;
 		return false;
 	}
-	if (seating[row][column] == false) {
+	if (seating[row][column]) {
 		cout << "Seat is already occupied" << endl;
 		return false;
 	}
-	seating[row][column] = false;
+	seating[row][column] = true;
 	cout << "Successfully booked " << (char)('A' + row) << column << endl;
 	return true;
 }
 
-void Hall::printHallId() {
+void Hall::printHallId() const {
 	string hallId = "Hall " + to_string(this->id);
 	int lengthOfScreen = noOfCols * 5;
 	int lengthOfWord = hallId.size();

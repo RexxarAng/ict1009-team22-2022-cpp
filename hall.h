@@ -5,7 +5,7 @@ private:
 	int noOfRows;
 	int noOfCols;
 	bool** seating;
-	void printHallId();
+	void printHallId() const;
 	void printScreen();
 	void printLegend();
 public:

@@ -8,6 +8,7 @@ include_directories(.)
 add_executable(ict1009_team22_2022_cpp
         main.cpp
         main.h
+        repository.h
         movie_repo.h
         actions.cpp
         colors.h
@@ -22,4 +23,5 @@ add_executable(ict1009_team22_2022_cpp
         movie.cpp
         movie.h
         show.cpp
-        show.h)
+        show.h
+        repository_exception.h repository_template.h)
