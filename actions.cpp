@@ -12,16 +12,16 @@
 #include "file.h"
 #include "colors.h"
 
-extern vector<Movie*> movies;
+extern vector<Movie*>* movies;
 
 void viewMovies() {
     clearScreen();
 
-    if (movies.size() > 0) {
+    if (!movies->empty()) {
         int movieIndex = 1;
         cout << "Movies now showing: " << endl;
         cout << "==============================" << endl;
-        for (Movie* i : movies) {
+        for (Movie* i : *movies) {
             cout << movieIndex << ") " << i->getTitle() << endl;
             movieIndex ++;
         }
@@ -30,9 +30,9 @@ void viewMovies() {
         unsigned int selection;
         cin >> selection;
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
-        if (selection > 0 && selection <= movies.size()) {
-            cout << "You have selected " << movies[selection-1]->getTitle() << endl;
-            viewShowTimesByMovie(movies[selection-1]);
+        if (selection > 0 && selection <= movies->size()) {
+            cout << "You have selected " << movies->at(selection-1)->getTitle() << endl;
+            viewShowTimesByMovie(movies->at(selection-1));
         }
         else {
             cout << "Invalid option, please try again." << endl;
@@ -157,13 +157,13 @@ void loadMovies() {
                 string movieGenre = row[2];
                 int movieDuration = stoi(row[3]);
                 Movie* newMovie = new Movie(movieName, movieDes, movieGenre, movieDuration);
-                movies.insert(movies.begin(), newMovie);
+                movies->insert(movies->begin(), newMovie);
             }
 
             if (movieCatalogFile.eof())
                 break;
         }
-        for (Movie* i : movies) {
+        for (Movie* i : *movies) {
             cout << i->getTitle() << endl;
         }
         movieCatalogFile.close();

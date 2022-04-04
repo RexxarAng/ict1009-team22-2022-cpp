@@ -2,4 +2,4 @@
 #include <vector>
 #include "movie.h"
 
-vector<Movie*> movies;
+vector<Movie*>* movies;

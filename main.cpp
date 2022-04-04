@@ -7,9 +7,12 @@ int main()
 {
     Repository<Movie> newMovieRepository("movieCatalog.csv");
     newMovieRepository.load();
-    newMovieRepository.save();
+    movies = newMovieRepository.getRecords();
 
-    loadMovies();
+    newMovieRepository.save(); // testing save function
+
+// TODO: To be removed
+//    loadMovies();
     displayMainMenu();
     clearScreen();
     Hall a(12, 12);
