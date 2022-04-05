@@ -29,6 +29,7 @@ public:
 	int getDuration() const;
 	void setDuration(int);
 
+    // AbstractDataModel
     string serialize() override;
     void deserialize(string) override;
 };

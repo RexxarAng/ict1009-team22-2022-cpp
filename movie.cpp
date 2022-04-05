@@ -51,8 +51,7 @@ void Movie::setDuration(int newDuration) {
 }
 
 string Movie::serialize() {
-    string serializedString;
-    serializedString += this->getTitle();
+    string serializedString = this->getTitle();
     serializedString += "," + this->getDesc();
     serializedString += "," + this->getGenre();
     serializedString += "," + to_string(this->getDuration());
