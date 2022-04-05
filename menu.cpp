@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "movie_controller.h"
 #include "movie.h"
 #include "menu.h"
+#include "screen_utility.h"
 using namespace std;
 
 void openMenu(MenuItem* p_menu, unsigned int item_quantity)
@@ -38,29 +40,32 @@ void openMenu(MenuItem* p_menu, unsigned int item_quantity)
     }
 }
 
+MovieController movieController;
+
 MenuItem main_menu[] =
 {
-    {1, "View Movies", viewMovies},
+    {1, "View Movies", movieController.viewMovies},
     {2, "View Bookings", viewBookings},
     {3, "View Something", viewSomething},
     {4, "Admin", displayAdminMenu},
-    {5, "Quit", quit}
+    {5, "Quit", ScreenUtility::quit}
 };
 
 static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
 
 MenuItem admin_main_menu[] =
 {
-    {1, "Add Movies", addMovies},
+    {1, "Add Movies", movieController.addMovies},
     {2, "Add Shows", addShows},
-    {3, "Back", displayMainMenu},
-    {4, "Quit", quit}
+    {3, "Add Halls", addHalls},
+    {4, "Back", displayMainMenu},
+    {5, "Quit", ScreenUtility::quit}
 };
 
 static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
 
 void displayMainMenu() {
-    clearScreen();
+    ScreenUtility::clearScreen();
     cout << "Movie Booking System" << endl;
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;
@@ -69,17 +74,17 @@ void displayMainMenu() {
 }
 
 void displayAdminMenu() {
-    clearScreen();
+    ScreenUtility::clearScreen();
     cout << "Admin Movie Booking System" << endl;
     cout << "==============================" << endl;
     cout << "Main Menu" << endl;
     openMenu(&admin_main_menu[0], admin_menu_size);
 }
 
-void clearScreen() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
-}
+//void clearScreen() {
+//#ifdef _WIN32
+//    system("cls");
+//#else
+//    system("clear");
+//#endif
+//}

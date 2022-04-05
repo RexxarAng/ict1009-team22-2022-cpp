@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "screen_utility.h"
 
 using namespace std;
 
@@ -37,7 +38,7 @@ bool Repository<T>::load() {
     dataSourceFile.open(this->filename);
     if (!dataSourceFile) {
         cout << "No records loaded" << endl;
-        pause();
+        ScreenUtility::pause();
     }
     else {
         cout << "Loading records..." << endl;
@@ -79,11 +80,14 @@ bool Repository<T>::save() {
     fstream dataSourceFileOut;
 
     try {
-        dataSourceFileOut.open(this->filename, ios::trunc);
+        dataSourceFileOut.open(this->filename, ios::trunc | ios::out);
         for (T* i : this->records) {
+            cout << i->getTitle() << "\n";
             dataSourceFileOut << i->serialize() << "\n";
         }
         dataSourceFileOut.close();
+        cout << "saved to " << this->filename << endl;
+        ScreenUtility::pause();
         return true;
     }
     catch(exception& e) {

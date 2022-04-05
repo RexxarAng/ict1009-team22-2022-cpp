@@ -17,5 +17,6 @@ void displayMainMenu();
 //void quit();
 //void addMovies();
 void addShows();
+void addHalls();
 //void pause();
-void clearScreen();
+//void clearScreen();

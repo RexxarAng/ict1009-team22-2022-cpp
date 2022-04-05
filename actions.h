@@ -1,20 +1,20 @@
 #pragma once
 #include "movie.h"
 
-void viewMovies();
+//void viewMovies();
 
 void viewBookings();
 
 void viewSomething();
 
-void quit();
+//void quit();
 
-void loadMovies();
+//void loadMovies();
 
-void addMovies();
+//void addMovies();
 
-void viewShowTimesByMovie(Movie* movie);
+//void viewShowTimesByMovie(Movie* movie);
 
-void viewBookingByShowTime(Show* showtime);
+//void viewBookingByShowTime(Show* showtime);
 
-void pause();
+//void pause();

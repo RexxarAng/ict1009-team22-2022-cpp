@@ -1,20 +1,20 @@
 #include "main.h"
-#include "actions.h"
 
 using namespace std;
 
+extern Repository<Movie> movieRepository;
+
 int main()
 {
-    Repository<Movie> newMovieRepository("movieCatalog.csv");
-    newMovieRepository.load();
-    movies = newMovieRepository.getRecords();
+    movieRepository.load();
+    movies = movieRepository.getRecords();
 
-    newMovieRepository.save(); // testing save function
+    movieRepository.save(); // testing save function
 
 // TODO: To be removed
 //    loadMovies();
     displayMainMenu();
-    clearScreen();
+    ScreenUtility::clearScreen();
     Hall a(12, 12);
     string movieName = "Venom";
     time_t now = time(0);
@@ -28,7 +28,7 @@ int main()
 
     s.showHallSeatingPlan();
 
-    pause();
+    ScreenUtility::clearScreen();
 
     return 0;
 
