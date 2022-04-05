@@ -10,6 +10,8 @@ void ScreenUtility::clearScreen() {
 
 void ScreenUtility::quit() {
 	cout << "Thank you for using this movie booking system." << endl;
+	pause();
+	exit(0);
 }
 
 void ScreenUtility::pause() {

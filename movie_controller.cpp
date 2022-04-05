@@ -211,7 +211,7 @@ void MovieController::removeMovies() {
             }
             else {
                 cout << "Invalid option, please try again." << endl;
-                ScreenUtility::pause();
+                ScreenUtility::pause(); 
             }
         }
         else {
