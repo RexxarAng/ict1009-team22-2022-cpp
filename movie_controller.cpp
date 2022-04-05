@@ -53,6 +53,36 @@ void MovieController::viewMovies() {
     ScreenUtility::pause();
 }
 
+Movie* MovieController::promptMovieSelection() {
+    extern vector<Movie*>* movies;
+    if (!movies->empty()) {
+
+        while (true) {
+            cout << "To quit select: -1" << endl;
+            cout << "Please select the movies by index: ";
+            unsigned int selection;
+            cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(256, '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+            if (selection > 0 && selection <= movies->size()) {
+                return movies->at(selection - 1);
+            }
+            else if (selection == -1) {
+                return nullptr;
+            }
+            else {
+                cout << "Invalid option, please try again." << endl;
+            }
+        }
+    }
+    return nullptr;
+    
+}
+
 void MovieController::viewShowTimesByMovie(Movie* movie) {
     unsigned int selection;
 

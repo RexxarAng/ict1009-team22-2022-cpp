@@ -4,12 +4,13 @@ using namespace std;
 
 extern Repository<Movie> movieRepository;
 extern Repository<Hall> hallRepository;
+extern Repository<Show> showRepository;
 
 int main()
 {
     movieRepository.load();
-    movieRepository.save(); // testing save function
     hallRepository.load();
+    showRepository.load();
 
 // TODO: To be removed
 //    loadMovies();

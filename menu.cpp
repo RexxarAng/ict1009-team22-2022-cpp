@@ -6,6 +6,7 @@
 #include <sstream>
 #include "movie_controller.h"
 #include "hall_controller.h"
+#include "show_controller.h"
 #include "movie.h"
 #include "menu.h"
 #include "screen_utility.h"
@@ -45,7 +46,7 @@ void openMenu(MenuItem* p_menu, unsigned int item_quantity)
 MenuItem main_menu[] =
 {
     {1, "View Movies", MovieController::viewMovies},
-    {2, "View Bookings", viewBookings},
+    {2, "View Shows", ShowController::viewShows},
     {3, "View Halls", HallController::viewHalls},
     {4, "Admin", displayAdminMenu},
     {5, "Quit", ScreenUtility::quit}
@@ -57,7 +58,7 @@ MenuItem admin_main_menu[] =
 {
     {1, "Add Movies", MovieController::addMovies},
     {2, "Remove Movies", MovieController::removeMovies},
-    {3, "Add Shows", addShows},
+    {3, "Add Shows", ShowController::addShows},
     {4, "Add Halls", HallController::addHalls},
     {5, "Remove Halls", HallController::removeHalls},
     {6, "Back", displayMainMenu},

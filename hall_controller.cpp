@@ -18,7 +18,6 @@ void HallController::displayHallList() {
 
 void HallController::viewHalls() {
 	extern vector<Hall*>* halls;
-    ScreenUtility::clearScreen();
     if (!halls->empty()) {
         while (true) {
             ScreenUtility::clearScreen();
@@ -144,6 +143,36 @@ void HallController::removeHalls() {
             break;
         }
     }
-     ScreenUtility::pause();
+    ScreenUtility::pause();
     displayAdminMenu();
+}
+
+Hall* HallController::promptHallSelection()
+{
+    extern vector<Hall*>* halls;
+    ScreenUtility::clearScreen();
+    if (!halls->empty()) {
+        while (true) {
+            cout << "To quit select: -1" << endl;
+            cout << "Please select the halls by index: ";
+            unsigned int selection;
+            cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(256, '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+            if (selection > 0 && selection <= halls->size()) {
+                return halls->at(selection - 1);
+            }
+            else if (selection == -1) {
+                return nullptr;
+            }
+            else {
+                cout << "Invalid option, please try again." << endl;
+            }
+        }
+    }
+    return nullptr;
 }
