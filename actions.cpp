@@ -50,7 +50,7 @@ void loadMovies() {
             try{
                 Movie* newMovie = new Movie(index, row[0], row[1] , row[2], stoi(row[3]), stoi(row[4]), row[5], stof(row[6]), row[7], row[8]);
                 //create a new movie object with the data from the file
-                movies.insert(movies.begin(), newMovie); //insert the movie object into a list of movies
+                movies.insert(movies.end(), newMovie); //insert the movie object into a list of movies
                 index ++;
                 cout << "DEBUG: Insert Sucessfull." << endl;
             }
