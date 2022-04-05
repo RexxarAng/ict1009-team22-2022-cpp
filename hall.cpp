@@ -8,19 +8,21 @@ using namespace std;
 
 int Hall::current_id = 0;
 
+Hall::Hall() = default;
+
 Hall::Hall(int noOfRows, int noOfCols) {
-	this->noOfRows = noOfRows;
-	this->noOfCols = noOfCols;
-	current_id++;
-	this->id = current_id;
-	seating = new bool* [noOfRows];
-	for (int i = 0; i < noOfRows; i++) {
-		seating[i] = new bool[noOfCols];
-	}
+    this->noOfRows = noOfRows;
+    this->noOfCols = noOfCols;
+    current_id++;
+    this->id = current_id;
+    seating = new bool* [noOfRows];
+    for (int i = 0; i < noOfRows; i++) {
+        seating[i] = new bool[noOfCols];
+    }
 
 }
 
-int Hall::getId() {
+int Hall::getId() const {
 	return this->id;
 }
 
@@ -92,8 +94,7 @@ void Hall::printHallId() const {
 	}
 	cout << endl << endl;
 }
-
-void Hall::printScreen() {
+void Hall::printScreen() const {
 	string screen = "SCREEN";
 	int lengthOfWord = screen.size();
 	int lengthOfScreen = noOfCols * 5;
@@ -134,3 +135,22 @@ void Hall::printLegend() {
 	printColor(" Sold");
 	cout << endl << endl;
 }
+
+string Hall::serialize() {
+    string serializedString = to_string(this->id);
+    serializedString += "," + to_string(this->noOfRows);
+    serializedString += "," + to_string(this->noOfCols);
+    return serializedString;
+}
+
+void Hall::deserialize(string dataString) {
+    vector<string> attributes = Hall::extractAttributesFromDataString(dataString);
+
+    cout << attributes.size() << endl;
+    if (attributes.size() < 3) throw ParseAttributeMismatchException();
+
+    this->id = stoi(attributes[0]);
+    this->noOfRows = stoi(attributes[1]);
+    this->noOfCols = stoi(attributes[2]);
+}
+
