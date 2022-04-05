@@ -7,6 +7,7 @@ private:
 	int id{};
 	int noOfRows{};
 	int noOfCols{};
+	static int current_id;
 	bool** seating{};
 	void printHallId() const;
 	void printScreen() const;
@@ -14,7 +15,6 @@ private:
 public:
     Hall();
 	Hall(int, int);
-	static int current_id;
 	int getId() const;
 	void showSeatingPlan(bool showColumnInformation = true, bool showRowInformation = true);
 	bool bookSeat(int, int);

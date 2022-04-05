@@ -13,7 +13,7 @@ Hall::Hall() = default;
 Hall::Hall(int noOfRows, int noOfCols) {
     this->noOfRows = noOfRows;
     this->noOfCols = noOfCols;
-    current_id++;
+    this->current_id++;
     this->id = current_id;
     seating = new bool* [noOfRows];
     for (int i = 0; i < noOfRows; i++) {
@@ -151,6 +151,7 @@ void Hall::deserialize(string dataString) {
     this->id = stoi(attributes[0]);
     this->noOfRows = stoi(attributes[1]);
 	this->noOfCols = stoi(attributes[2]);
+	this->current_id = id + 1;
 	seating = new bool* [this->noOfRows];
 	for (int i = 0; i < this->noOfRows; i++) {
 		seating[i] = new bool[this->noOfCols];
