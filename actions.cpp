@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iterator>
 #include <list>
 #include "movie.h"
 #include "menu.h"
@@ -90,7 +91,26 @@ void viewBookings() {
 
 void viewSomething() {
     system("cls");
-    cout << "Not sure what this is yet" << endl;
+    cout << "What's the movie ID?" << endl;
+    int movieID;
+    cin >> movieID;
+    for (Movie* i : movies) {
+        if (i->getmovieID() == movieID) {
+            Movie selectedMovie = *i;
+            cout << "Which time slots do you want?" << endl << endl;
+            cout << "Available time slots:" << endl;
+            list<Show>::iterator it;
+            tm currentDate;
+            for (it = selectedMovie.getShows().begin(); it != selectedMovie.getShows().end(); it++) {
+                //unsure if I'm making a shallow or deep copy here
+                currentDate = it->getDate();
+                mktime(&currentDate);
+                cout << asctime(&currentDate) << "-" << "calc end of movie here" << endl; //mktime converts tm to time_t
+            }
+            cin >> 
+        }
+    }
+    
 }
 
 void quit() {

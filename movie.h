@@ -28,6 +28,8 @@ public:
 	void setDesc(string);
 	string getGenre();
 	void setGenre(string);
+	int getmovieID();
+	void setmovieID(int);
 	int getDuration();
 	void setDuration(int);
 };

@@ -37,3 +37,20 @@ void Movie::setGenre(string genre) {
 	this->genre = genre;
 }
 
+
+int Movie::getmovieID() {
+	return this->movieID;
+}
+
+void Movie::setmovieID(int movieID) {
+	this->movieID = movieID;
+}
+
+int Movie::getDuration() {
+	return this->runtime;
+}
+
+void Movie::setDuration(int runtime) {
+    this->runtime = runtime;
+}
+
