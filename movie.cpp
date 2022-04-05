@@ -1,13 +1,18 @@
 #include "movie.h"
 #include <string>
 
-Movie::Movie(string title, string desc, string genre, int duration) {
-	this->title = title;
-	this->desc = desc;
-	this->genre = genre;
-	this->duration = duration;
+Movie::Movie(int movieID, string tconst, string title , string desc, int runtime, int maturity, string genre, float rating, string maincast, string language){
+    this -> movieID = movieID; //a unique running number for the system
+    this -> tconst = tconst; //a unique indentifier for the movie
+    this -> title = title; //title of move
+    this -> desc = desc; //breif description of movie
+    this -> genre = genre; //Genres of the movie
+    this -> runtime = runtime; //duration in mins
+    this -> maturity = maturity; // maturity of movie
+    this -> rating = rating; //rating upon 10
+    this -> mainCast = maincast; //main casts of movie
+    this -> language = language; //main langauge of movie
 }
-
 string Movie::getTitle() {
 	return this->title;
 }
@@ -32,10 +37,3 @@ void Movie::setGenre(string genre) {
 	this->genre = genre;
 }
 
-int Movie::getDuration() {
-	return this->duration;
-}
-
-void Movie::setDuration(int duration) {
-	this->duration = duration;
-}

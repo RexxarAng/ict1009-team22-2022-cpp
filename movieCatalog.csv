@@ -1,3 +1,2 @@
-movieID, Title, desc, title, genre, rating, mainCast, sypnosis, language
-Venom, Venom movie, Action, 150
-01, Venom, "A failed reporter is bonded to an alien entity, one of many symbiotes who have invaded Earth. But the being takes a liking to Earth and decides to protect it.",
+movieID, Title, desc, runTime, maturity(0 to 5), genre, rating, mainCast, language
+tt0000012, Venom: Let There Be Carnage, "A failed reporter is bonded to an alien entity, one of many symbiotes who have invaded Earth. But the being takes a liking to Earth and decides to protect it.", 120, 2, "Horror, Action, Thriller", 6.7, "Tom Hardy, Michelle Williams", English

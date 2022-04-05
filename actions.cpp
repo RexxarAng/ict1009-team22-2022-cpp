@@ -12,50 +12,64 @@
 extern list<Movie*> movies; //a list of loaded movies
 
 using namespace std;
+
+//prototyping helper function
+vector<string> readCSVRow(const string &row);
 void loadMovies() {
-    cout << "DEBUG: opening loadMovies()" << endl;
+    /*This function loads all the movie showing from the movies catalog file. Returns error if fail, continues otherwise.*/
     ifstream movieCatalogFile;
     vector<string> row;
     string word, line;
     string fileOpenError = "File failed to open.";
+    int index = 0;
     try{
         movieCatalogFile.open(MOVIE_FILE);
         if (movieCatalogFile.fail()) throw (fileOpenError);
     }
     catch(string fileOpenError){
-        cout << "ERROR: " << fileOpenError << endl;
-        cout << "No movies loaded" << endl;
+        cerr << "ERROR: " << fileOpenError;
+        cerr << " No movies loaded." << endl;
         pause();
+        exit(1);
     }
     cout << "DEBUG: loadMovies suceeded" << endl;
     while (!movieCatalogFile.eof()) {
+        //Interates thru the entire file row by row
         row.clear();
         getline(movieCatalogFile, line);
         stringstream s(line);
-        while (getline(s, word, ',')) {
-            row.push_back(word);
+        auto row = readCSVRow(line);
+        if (index == 0){
+            index++;
+            continue;
         }
-        if (row.size() == 4) {
-            string movieName = row[0];
-            string movieDes = row[1];
-            string movieGenre = row[2];
-            int movieDuration = stoi(row[3]);
-            Movie* newMovie = new Movie(movieName, movieDes, movieGenre, movieDuration); //create a new movie object with the data from the file
-            movies.insert(movies.begin(), newMovie); //insert the movie object into a list of movies
+        if (row.size() == 9) {
+            //Ensures that there is no missing information for the row
+//            cout << "DEBUG: Inserting: " << row[0] << endl;
+            try{
+                Movie* newMovie = new Movie(index, row[0], row[1] , row[2], stoi(row[3]), stoi(row[4]), row[5], stof(row[6]), row[7], row[8]);
+                //create a new movie object with the data from the file
+                movies.insert(movies.begin(), newMovie); //insert the movie object into a list of movies
+                index ++;
+                cout << "DEBUG: Insert Sucessfull." << endl;
+            }
+            catch(invalid_argument){
+                cout << "ERROR: Invalid Argumanet found in row, skipping..." << endl;
+                continue;
+            }
         }
-
-        if (movieCatalogFile.eof())
-            break;
+        else{
+            cout << "DEBUG: Missing information in row. Skipping... " << endl;
+        }
+        if (movieCatalogFile.eof()) break;
     }
-//    for (Movie* i : movies) {
-//        cout << i->getTitle() << endl;
-//    }
     movieCatalogFile.close();
 }
 
 void viewMovies() {
+    /*This function prints all the movies that is currently showing, fired when user wants to browse catalogs*/
     system("cls");
-
+    //Iterate
     if (movies.size() > 0) {
         cout << "Movies now showing: " << endl;
         for (Movie* i : movies) {
@@ -148,4 +162,50 @@ void pause() {
     cin.get();
 }
 
-
+//helper function to parse CSV files with commas and quotes
+enum class CSVState {
+    UnquotedField,
+    QuotedField,
+    QuotedQuote
+};
+vector<string> readCSVRow(const string &row) {
+    CSVState state = CSVState::UnquotedField;
+    vector<string> fields {""};
+    size_t i = 0; // index of the current field
+    for (char c : row) {
+        switch (state) {
+            case CSVState::UnquotedField:
+                switch (c) {
+                    case ',': // end of field
+                              fields.push_back(""); i++;
+                              break;
+                    case '"': state = CSVState::QuotedField;
+                              break;
+                    default:  fields[i].push_back(c);
+                              break; }
+                break;
+            case CSVState::QuotedField:
+                switch (c) {
+                    case '"': state = CSVState::QuotedQuote;
+                              break;
+                    default:  fields[i].push_back(c);
+                              break; }
+                break;
+            case CSVState::QuotedQuote:
+                switch (c) {
+                    case ',': // , after closing quote
+                              fields.push_back(""); i++;
+                              state = CSVState::UnquotedField;
+                              break;
+                    case '"': // "" -> "
+                              fields[i].push_back('"');
+                              state = CSVState::QuotedField;
+                              break;
+                    default:  // end of quote
+                              state = CSVState::UnquotedField;
+                              break; }
+                break;
+        }
+    }
+    return fields;
+}
