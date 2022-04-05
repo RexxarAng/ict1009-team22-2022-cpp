@@ -39,11 +39,17 @@ void Show::showHallSeatingPlan() {
 
 string Show::serialize() {
     string serializedString = this->getTitle();
-    serializedString += "," + this->getTime();
-    serializedString += "," + this->getHall()->serialize();
+    serializedString += ";" + this->getTime();
+    serializedString += ";" + this->getHall()->serialize();
     return serializedString;
 }
 
-void Show::deserialize(string) {
+void Show::deserialize(string dataString) {
+    vector<string> attributes = Show::extractAttributesFromDataString(dataString, ';');
 
+    if (attributes.size() < 3) throw ParseAttributeMismatchException();
+
+    this->title = std::move( attributes[0]);
+    this->time = std::move(attributes[1]);
+    this->hall.deserialize(attributes[1]);
 }
