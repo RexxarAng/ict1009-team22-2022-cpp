@@ -10,6 +10,7 @@ private:
 	string title;
 	string desc;
 	string genre;
+	int movieID;
 	int duration;
 	list<Show> shows;
 public:
@@ -20,6 +21,9 @@ public:
 	void setDesc(string);
 	string getGenre();
 	void setGenre(string);
+	int getmovieID();
+	void setmovieID(int);
 	int getDuration();
 	void setDuration(int);
+	list<Show> getShows();
 };

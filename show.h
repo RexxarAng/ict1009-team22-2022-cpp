@@ -13,8 +13,8 @@ private:
 public:
 	Show(string, tm, Hall);
 	string getTitle();
+	tm getDate();
 	int getHallId();
 	void showHallSeatingPlan();
-	tm getDate();
 };
 
