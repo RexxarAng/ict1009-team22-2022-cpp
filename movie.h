@@ -10,7 +10,13 @@ private:
 	string title;
 	string desc;
 	string genre;
+    int movieID;
 	int duration;
+    tm runtime;
+    float rating;
+    string mainCast;
+    string sypnosis;
+    bool isShowing;
 	list<Show> shows;
 public:
 	Movie(string, string, string, int);
