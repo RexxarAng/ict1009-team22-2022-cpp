@@ -10,11 +10,11 @@ using namespace std;
 
 class AbstractDataModel {
 protected:
-    static vector<string> extractAttributesFromDataString(const string& dataString) {
+    static vector<string> extractAttributesFromDataString(const string& dataString, char separator = ',') {
         string word;
         vector<string> attributes;
         stringstream ss(dataString);
-        while (getline(ss, word, ',')) {
+        while (getline(ss, word, separator)) {
             attributes.push_back(word);
         }
         return attributes;

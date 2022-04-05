@@ -69,7 +69,7 @@ void MovieController::viewShowTimesByMovie(Movie* movie) {
     string movieName = movie->getTitle();
     time_t now = time(0);
     tm localtm = *localtime(&now);
-    Show s(movieName, localtm, a);
+    Show s(movieName, "0800 hrs", a);
     viewBookingByShowTime(&s);
 }
 

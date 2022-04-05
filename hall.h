@@ -2,8 +2,8 @@
 #include "repository_template.h"
 #include "repository_exception.h"
 
-class Hall : AbstractDataModel {
-private:
+class Hall : public AbstractDataModel {
+protected:
 	int id{};
 	int noOfRows{};
 	int noOfCols{};

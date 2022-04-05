@@ -13,7 +13,7 @@ Hall::Hall() = default;
 Hall::Hall(int noOfRows, int noOfCols) {
     this->noOfRows = noOfRows;
     this->noOfCols = noOfCols;
-    this->current_id++;
+    current_id++;
     this->id = current_id;
     seating = new bool* [noOfRows];
     for (int i = 0; i < noOfRows; i++) {
@@ -29,6 +29,7 @@ int Hall::getId() const {
 void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) {
 	printHallId();
 	printScreen();
+
 	if (showColumnInformation) {
 		// Print Column Information
 		if (showRowInformation) cout << "   ";
@@ -48,7 +49,7 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 		for (int c = 0; c < noOfCols; c++) {
 			printColor("[", -1);
 			// is booked
- 			if (seating[r][c]) {
+			if (seating[r][c]) {
 				printColor(" x ", 2);
 			}
 			else {
@@ -139,6 +140,17 @@ string Hall::serialize() {
     string serializedString = to_string(this->id);
     serializedString += "," + to_string(this->noOfRows);
     serializedString += "," + to_string(this->noOfCols);
+
+    serializedString += ",";
+    int i = 0;
+    for (int r = 0; r < this->noOfRows; r++) {
+        for (int c = 0; c < this->noOfCols; c++) {
+            if (this->seating[r][c]) serializedString += "1";
+            else serializedString += "0";
+            serializedString += '|';
+        }
+    }
+
     return serializedString;
 }
 
@@ -146,15 +158,26 @@ void Hall::deserialize(string dataString) {
     vector<string> attributes = Hall::extractAttributesFromDataString(dataString);
 
     cout << attributes.size() << endl;
-    if (attributes.size() < 3) throw ParseAttributeMismatchException();
+    if (attributes.size() < 4) throw ParseAttributeMismatchException();
 
     this->id = stoi(attributes[0]);
     this->noOfRows = stoi(attributes[1]);
-	this->noOfCols = stoi(attributes[2]);
-	this->current_id = id + 1;
-	seating = new bool* [this->noOfRows];
-	for (int i = 0; i < this->noOfRows; i++) {
-		seating[i] = new bool[this->noOfCols];
-	}
+    this->noOfCols = stoi(attributes[2]);
+    this->current_id = id + 1;
+
+    // Create booking seating
+    seating = new bool* [noOfRows];
+    for (int i = 0; i < noOfRows; i++) {
+        seating[i] = new bool[noOfCols];
+    }
+
+    vector<string> seatingDataString = Hall::extractAttributesFromDataString(attributes[3], '|');
+    int i = 0;
+    for (int r = 0; r < this->noOfRows; r++) {
+        for (int c = 0; c < this->noOfCols; c++) {
+            this->seating[r][c] += seatingDataString[i] == "1";
+            i++;
+        }
+    }
 }
 
