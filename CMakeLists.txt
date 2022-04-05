@@ -24,4 +24,10 @@ add_executable(ict1009_team22_2022_cpp
         movie.h
         show.cpp
         show.h
-        repository_exception.h repository_template.h)
+        repository_exception.h
+        repository_template.h
+        movie_controller.cpp
+        movie_controller.h
+        hall_controller.h
+        screen_utility.cpp
+        screen_utility.h)
