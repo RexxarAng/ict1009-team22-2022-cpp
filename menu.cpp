@@ -67,20 +67,24 @@ MenuItem admin_main_menu[] =
 static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
 
 void displayMainMenu() {
-    ScreenUtility::clearScreen();
-    cout << "Movie Booking System" << endl;
-    cout << "==============================" << endl;
-    cout << "Main Menu" << endl;
-    // Process the menu
-    openMenu(&main_menu[0], main_menu_size);
+    while (true) {
+        ScreenUtility::clearScreen();
+        cout << "Movie Booking System" << endl;
+        cout << "==============================" << endl;
+        cout << "Main Menu" << endl;
+        // Process the menu
+        openMenu(&main_menu[0], main_menu_size);
+    }
 }
 
 void displayAdminMenu() {
-    ScreenUtility::clearScreen();
-    cout << "Admin Movie Booking System" << endl;
-    cout << "==============================" << endl;
-    cout << "Main Menu" << endl;
-    openMenu(&admin_main_menu[0], admin_menu_size);
+    while (true) {
+        ScreenUtility::clearScreen();
+        cout << "Admin Movie Booking System" << endl;
+        cout << "==============================" << endl;
+        cout << "Admin Menu" << endl;
+        openMenu(&admin_main_menu[0], admin_menu_size);
+    }
 }
 
 //void clearScreen() {

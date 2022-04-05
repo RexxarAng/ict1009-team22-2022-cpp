@@ -15,31 +15,42 @@ void MovieController::viewMovies() {
     extern vector<Movie*>* movies;
     ScreenUtility::clearScreen();
     if (!movies->empty()) {
-        int movieIndex = 1;
-        cout << "Movies now showing: " << endl;
-        cout << "==============================" << endl;
-        for (Movie* i : *movies) {
-            cout << movieIndex << ") " << i->getTitle() << endl;
-            movieIndex++;
-        }
 
-        cout << "Please select the movies by index: ";
-        unsigned int selection;
-        cin >> selection;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
-        if (selection > 0 && selection <= movies->size()) {
-            cout << "You have selected " << movies->at(selection - 1)->getTitle() << endl;
-            viewShowTimesByMovie(movies->at(selection - 1));
-        }
-        else {
-            cout << "Invalid option, please try again." << endl;
+        while (true) {
+            ScreenUtility::clearScreen();
+            int movieIndex = 1;
+            cout << "Movies now showing: " << endl;
+            cout << "==============================" << endl;
+            for (Movie* i : *movies) {
+                cout << movieIndex << ") " << i->getTitle() << endl;
+                movieIndex++;
+            }
+            cout << "To quit select: -1" << endl;
+            cout << "Please select the movies by index: ";
+            unsigned int selection;
+            cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(256, '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+            if (selection > 0 && selection <= movies->size()) {
+                cout << "You have selected " << movies->at(selection - 1)->getTitle() << endl;
+                viewShowTimesByMovie(movies->at(selection - 1));
+            }
+            else if (selection == -1) {
+                break;
+            }
+            else {
+                cout << "Invalid option, please try again." << endl;
+            }
         }
     }
     else {
         cout << "No movies currently showing" << endl;
     }
     ScreenUtility::pause();
-    displayMainMenu();
 }
 
 void MovieController::viewShowTimesByMovie(Movie* movie) {
@@ -82,7 +93,7 @@ void MovieController::viewBookingByShowTime(Show* showtime) {
         cout << "==============================" << endl;
         cout << "Book any seat numbers" << endl;
         cout << "q) Back" << endl;
-        cout << "Please selected the option:";
+        cout << "Please select the option:";
 
         cin >> selection;
         if (cin.fail()) {
@@ -92,6 +103,7 @@ void MovieController::viewBookingByShowTime(Show* showtime) {
             ScreenUtility::pause();
         }
         else if (selection == "q") {
+            ScreenUtility::clearScreen();
             break;
         }
         else {
@@ -157,7 +169,6 @@ void MovieController::addMovies() {
             cont = false;
     }
     movieRepository.save();
-    displayAdminMenu();
 }
 
 void MovieController::displayMovieList() {
@@ -184,6 +195,11 @@ void MovieController::removeMovies() {
             cout << "Please select the movies by index: ";
             unsigned int selection;
             cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(256, '\n');
+                continue;
+            }
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
             if (selection > 0 && selection <= movies->size()) {
                 cout << "You have selected " << movies->at(selection - 1)->getTitle() << endl;
@@ -221,5 +237,4 @@ void MovieController::removeMovies() {
     }
     movieRepository.save();
     ScreenUtility::pause();
-    displayAdminMenu();
 }

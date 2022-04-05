@@ -15,11 +15,9 @@ Hall::Hall(int noOfRows, int noOfCols) {
     this->noOfCols = noOfCols;
     current_id++;
     this->id = current_id;
-    seating = new bool* [noOfRows];
-    for (int i = 0; i < noOfRows; i++) {
-        seating[i] = new bool[noOfCols];
-    }
-
+	// Create seating where all is not booked
+	vector<vector<bool>> newSeating(noOfRows, vector<bool>(noOfCols, false));
+	this->seating = newSeating;
 }
 
 int Hall::getId() const {
@@ -61,7 +59,7 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 	}
 	cout << endl;
 	printLegend();
-
+	
 
 }
 
@@ -166,16 +164,14 @@ void Hall::deserialize(string dataString) {
     this->current_id = id + 1;
 
     // Create booking seating
-    seating = new bool* [noOfRows];
-    for (int i = 0; i < noOfRows; i++) {
-        seating[i] = new bool[noOfCols];
-    }
+	vector<vector<bool>> newSeating(noOfRows, vector<bool>(noOfCols, false));
+	this->seating = newSeating;
 
     vector<string> seatingDataString = Hall::extractAttributesFromDataString(attributes[3], '|');
     int i = 0;
     for (int r = 0; r < this->noOfRows; r++) {
         for (int c = 0; c < this->noOfCols; c++) {
-            this->seating[r][c] += seatingDataString[i] == "1";
+            this->seating[r][c] = seatingDataString[i] == "1";
             i++;
         }
     }

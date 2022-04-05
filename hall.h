@@ -8,7 +8,7 @@ protected:
 	int noOfRows{};
 	int noOfCols{};
 	static int current_id;
-	bool** seating{};
+	vector<vector<bool>> seating{};
 	void printHallId() const;
 	void printScreen() const;
 	static void printLegend();

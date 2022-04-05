@@ -14,30 +14,43 @@ void HallController::displayHallList() {
         cout << hallIndex << ") " << "Hall " << i->getId() << endl;
         hallIndex++;
     }
-    cout << "Please select the hall by index: ";
 }
 
 void HallController::viewHalls() {
 	extern vector<Hall*>* halls;
     ScreenUtility::clearScreen();
     if (!halls->empty()) {
-        displayHallList();
-        unsigned int selection;
-        cin >> selection;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
-        if (selection > 0 && selection <= halls->size()) {
-            cout << "You have selected " << halls->at(selection - 1)->getId() << endl;
-            halls->at(selection - 1)->showSeatingPlan();
-        }
-        else {
-            cout << "Invalid option, please try again." << endl;
+        while (true) {
+            ScreenUtility::clearScreen();
+            displayHallList();
+            cout << endl;
+            cout << "To quit select: -1" << endl;
+            cout << "Please select the hall by index: ";
+            unsigned int selection;
+            cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(256, '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+            if (selection > 0 && selection <= halls->size()) {
+                cout << "You have selected " << halls->at(selection - 1)->getId() << endl;
+                halls->at(selection - 1)->showSeatingPlan();
+                ScreenUtility::pause();
+            }
+            else if (selection == -1) {
+                break;
+            }
+            else {
+                cout << "Invalid option, please try again." << endl;
+            }
         }
     }
     else {
         cout << "No halls available" << endl;
     }
     ScreenUtility::pause();
-    displayMainMenu();
 }
 
 void HallController::addHalls() {
@@ -48,6 +61,7 @@ void HallController::addHalls() {
     cout << "Adding Halls..." << endl;
     bool cont = true;
     while (cont) {
+        displayHallList();
         cout << "Hall rows: ";
         cin >> rows;
         if (cin.fail()) {
@@ -87,9 +101,14 @@ void HallController::removeHalls() {
             displayHallList();
             cout << endl;
             cout << "To quit select: -1" << endl;
-            cout << "Please select the halls by index: ";
+            cout << "Please select the hall by index: ";
             unsigned int selection;
             cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(256, '\n');
+                continue;
+            }
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
             if (selection > 0 && selection <= halls->size()) {
                 cout << "You have selected Hall " << halls->at(selection - 1)->getId() << endl;
