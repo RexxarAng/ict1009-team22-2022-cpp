@@ -1,7 +1,6 @@
 #ifndef ICT1009_TEAM22_2022_CPP_REPOSITORY_H
 #define ICT1009_TEAM22_2022_CPP_REPOSITORY_H
 
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -56,7 +55,7 @@ bool Repository<T>::load() {
             try {
                 T* dataModel = new T();
                 dataModel->deserialize(line);
-                this->records.insert(this->records.begin(), dataModel);
+                this->records.insert(this->records.end(), dataModel);
             }
             catch (exception& e) {
                 cout << "Record not loaded due to : " << e.what() << endl;

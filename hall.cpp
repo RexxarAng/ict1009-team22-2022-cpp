@@ -29,7 +29,6 @@ int Hall::getId() const {
 void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) {
 	printHallId();
 	printScreen();
-
 	if (showColumnInformation) {
 		// Print Column Information
 		if (showRowInformation) cout << "   ";
@@ -49,7 +48,7 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 		for (int c = 0; c < noOfCols; c++) {
 			printColor("[", -1);
 			// is booked
-			if (seating[r][c]) {
+ 			if (seating[r][c]) {
 				printColor(" x ", 2);
 			}
 			else {
@@ -151,6 +150,10 @@ void Hall::deserialize(string dataString) {
 
     this->id = stoi(attributes[0]);
     this->noOfRows = stoi(attributes[1]);
-    this->noOfCols = stoi(attributes[2]);
+	this->noOfCols = stoi(attributes[2]);
+	seating = new bool* [this->noOfRows];
+	for (int i = 0; i < this->noOfRows; i++) {
+		seating[i] = new bool[this->noOfCols];
+	}
 }
 

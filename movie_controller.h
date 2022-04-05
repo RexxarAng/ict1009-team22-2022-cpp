@@ -14,7 +14,6 @@ public:
     static void viewBookingByShowTime(Show*);
     static void addMovies();
     static void removeMovies();
-    static void editMovies();
 };
 
 

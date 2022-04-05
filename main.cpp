@@ -3,11 +3,13 @@
 using namespace std;
 
 extern Repository<Movie> movieRepository;
+extern Repository<Hall> hallRepository;
 
 int main()
 {
     movieRepository.load();
     movieRepository.save(); // testing save function
+    hallRepository.load();
 
 // TODO: To be removed
 //    loadMovies();

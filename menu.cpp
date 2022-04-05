@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include "movie_controller.h"
+#include "hall_controller.h"
 #include "movie.h"
 #include "menu.h"
 #include "screen_utility.h"
@@ -45,7 +46,7 @@ MenuItem main_menu[] =
 {
     {1, "View Movies", MovieController::viewMovies},
     {2, "View Bookings", viewBookings},
-    {3, "View Something", viewSomething},
+    {3, "View Halls", HallController::viewHalls},
     {4, "Admin", displayAdminMenu},
     {5, "Quit", ScreenUtility::quit}
 };
@@ -57,9 +58,10 @@ MenuItem admin_main_menu[] =
     {1, "Add Movies", MovieController::addMovies},
     {2, "Remove Movies", MovieController::removeMovies},
     {3, "Add Shows", addShows},
-    {4, "Add Halls", addHalls},
-    {5, "Back", displayMainMenu},
-    {6, "Quit", ScreenUtility::quit}
+    {4, "Add Halls", HallController::addHalls},
+    {5, "Remove Halls", HallController::removeHalls},
+    {6, "Back", displayMainMenu},
+    {7, "Quit", ScreenUtility::quit}
 };
 
 static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);

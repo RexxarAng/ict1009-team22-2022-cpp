@@ -3,7 +3,10 @@
 
 class HallController {
 public:
+	static void viewHalls();
+	static void viewHallList();
 	static void addHalls();
+	static void removeHalls();
 };
 
 #endif
