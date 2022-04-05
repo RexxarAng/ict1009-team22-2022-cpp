@@ -2,19 +2,27 @@
 #include <ctime>
 #include <string>
 #include "hall.h"
+#include "repository_template.h"
+#include "repository_exception.h"
+
 using namespace std;
 
-class Show {
+class Show : public AbstractDataModel {
 private:
 	string title;
-	tm date{};
-	Hall hallOfShow;
+	string time;
+	Hall hall;
 public:
-	Show(string, tm, Hall);
+    Show(); // for deserialization
+	Show(string title, string time, Hall hall);
 	string getTitle();
+    string getTime();
 	int getHallId();
 	void showHallSeatingPlan();
-	tm getDate();
     Hall* getHall();
+
+    // AbstractDataModel
+    string serialize() override;
+    void deserialize(string) override;
 };
 

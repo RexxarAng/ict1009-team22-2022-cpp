@@ -7,29 +7,43 @@
 
 void printColor(string, int = 0);
 
-Show::Show(string title, tm date, Hall hallOfShow) : hallOfShow(hallOfShow) {
+Show::Show() = default;
+
+Show::Show(string title, string time, Hall hall) {
 	this->title = std::move(title);
-	this->date = date;
+	this->time = std::move(time);
+    this->hall = std::move(hall);
 }
 
 string Show::getTitle() {
 	return this->title;
 }
 
-tm Show::getDate() {
-	return this->date;
+string Show::getTime() {
+    return this->time;
+}
+
+Hall* Show::getHall() {
+    return &(this->hall);
 }
 
 int Show::getHallId() {
-	return hallOfShow.getId();
+	return hall.getId();
 }
 
 void Show::showHallSeatingPlan() {
 	printColor(title, 1);
-	cout << " " << asctime(&date) << endl;
-	hallOfShow.showSeatingPlan();
+	cout << " " << this->time << endl;
+	hall.showSeatingPlan();
 }
 
-Hall* Show::getHall() {
-    return &(this->hallOfShow);
+string Show::serialize() {
+    string serializedString = this->getTitle();
+    serializedString += "," + this->getTime();
+    serializedString += "," + this->getHall()->serialize();
+    return serializedString;
+}
+
+void Show::deserialize(string) {
+
 }
