@@ -41,16 +41,16 @@ void loadMovies() {
             string movieDes = row[1];
             string movieGenre = row[2];
             int movieDuration = stoi(row[3]);
-            Movie* newMovie = new Movie(movieName, movieDes, movieGenre, movieDuration);
-            movies.insert(movies.begin(), newMovie);
+            Movie* newMovie = new Movie(movieName, movieDes, movieGenre, movieDuration); //create a new movie object with the data from the file
+            movies.insert(movies.begin(), newMovie); //insert the movie object into a list of movies
         }
 
         if (movieCatalogFile.eof())
             break;
     }
-    for (Movie* i : movies) {
-        cout << i->getTitle() << endl;
-    }
+//    for (Movie* i : movies) {
+//        cout << i->getTitle() << endl;
+//    }
     movieCatalogFile.close();
 }
 

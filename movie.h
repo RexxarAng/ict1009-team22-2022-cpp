@@ -12,6 +12,11 @@ private:
 	string genre;
 	int movieID;
 	int duration;
+    tm runtime;
+    float rating;
+    string mainCast;
+    string sypnosis;
+    bool isShowing;
 	list<Show> shows;
 public:
 	Movie(string, string, string, int);
@@ -25,5 +30,4 @@ public:
 	void setmovieID(int);
 	int getDuration();
 	void setDuration(int);
-	list<Show> getShows();
 };
