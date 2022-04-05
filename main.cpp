@@ -7,8 +7,6 @@ extern Repository<Movie> movieRepository;
 int main()
 {
     movieRepository.load();
-    movies = movieRepository.getRecords();
-
     movieRepository.save(); // testing save function
 
 // TODO: To be removed

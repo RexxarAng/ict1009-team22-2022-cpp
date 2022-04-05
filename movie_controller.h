@@ -6,12 +6,13 @@
 #include "show.h"
 
 class MovieController {
+private:
 public:
 	static void viewMovies();
+    static void displayMovieList();
     static void viewShowTimesByMovie(Movie*);
     static void viewBookingByShowTime(Show*);
     static void addMovies();
-    static void loadMovies();
     static void removeMovies();
     static void editMovies();
 };

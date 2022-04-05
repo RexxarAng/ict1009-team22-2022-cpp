@@ -82,12 +82,12 @@ bool Repository<T>::save() {
     try {
         dataSourceFileOut.open(this->filename, ios::trunc | ios::out);
         for (T* i : this->records) {
-            cout << i->getTitle() << "\n";
+            //cout << i->getTitle() << "\n";
             dataSourceFileOut << i->serialize() << "\n";
         }
         dataSourceFileOut.close();
-        cout << "saved to " << this->filename << endl;
-        ScreenUtility::pause();
+        //cout << "saved to " << this->filename << endl;
+        //ScreenUtility::pause();
         return true;
     }
     catch(exception& e) {

@@ -115,9 +115,9 @@ void MovieController::viewBookingByShowTime(Show* showtime) {
     }
 }
 
+
 void MovieController::addMovies() {
     extern vector<Movie*>* movies;
-    fstream fout;
     vector<string> row;
     string line, word, movieName, currentMovieName, movieDesc, movieGenre;
     int movieDuration;
@@ -153,10 +153,73 @@ void MovieController::addMovies() {
         cout << "Do you still want to add more movies(Y/N): ";
         cin >> input;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if (input[0] != 'Y')
+        if (toupper(input[0]) != 'Y')
             cont = false;
     }
     movieRepository.save();
+    displayAdminMenu();
+}
 
+void MovieController::displayMovieList() {
+    extern vector<Movie*>* movies;
+    if (!movies->empty()) {
+        int movieIndex = 1;
+        cout << "Movies now showing: " << endl;
+        cout << "==============================" << endl;
+        for (Movie* i : *movies) {
+            cout << movieIndex << ") " << i->getTitle() << endl;
+            movieIndex++;
+        }
+    }
+}
+
+void MovieController::removeMovies() {
+    extern vector<Movie*>* movies;
+    while (true) {
+        ScreenUtility::clearScreen();
+        if (!movies->empty()) {
+            displayMovieList();
+            cout << endl;
+            cout << "To quit select: -1" << endl;
+            cout << "Please select the movies by index: ";
+            unsigned int selection;
+            cin >> selection;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+            if (selection > 0 && selection <= movies->size()) {
+                cout << "You have selected " << movies->at(selection - 1)->getTitle() << endl;
+                cout << "Are you sure you want to remove this movie (Y/N): ";
+                string input;
+                cin >> input;
+                while (cin.fail()) {
+                    cout << "Please enter characters only";
+                    cin.clear();
+                    cin.ignore(256, '\n');
+                    cin >> input;
+                }
+                if (toupper(input.at(0)) != 'Y') {
+                    cout << "Invalid selection" << endl;
+                    ScreenUtility::pause();
+                    continue;
+                }
+                cout << movies->at(selection - 1)->getTitle() << " successfully deleted" << endl;;
+                movies->erase(movies->begin() + selection - 1);
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+                ScreenUtility::pause();
+            }
+            else if (selection == -1) {
+                break;
+            }
+            else {
+                cout << "Invalid option, please try again." << endl;
+                ScreenUtility::pause();
+            }
+        }
+        else {
+            cout << "No movies currently showing" << endl;
+            break;
+        }
+    }
+    movieRepository.save();
+    ScreenUtility::pause();
     displayAdminMenu();
 }
