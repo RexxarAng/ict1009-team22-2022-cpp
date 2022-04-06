@@ -1,4 +1,6 @@
 #pragma once
+#include "booking.h"
+
 class Hall {
 private:
 	int id;

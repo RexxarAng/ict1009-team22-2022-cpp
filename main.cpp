@@ -16,7 +16,8 @@ int main(){
     string movieName = "Venom";
     time_t now = time(0);
     tm localtm = *localtime(&now);
-    Show s(movieName, localtm, a);
+    int id = 1;
+    Show s(id, localtm, a);
     //a.bookSeat(2, 4);
     //a.bookSeat(2, 5);
 

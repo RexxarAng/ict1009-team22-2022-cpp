@@ -19,6 +19,7 @@ private:
     string language;
     bool isShowing; //if the movie is showing
 	list<Show> shows;
+
 public:
 //	Movie(string, string, string, int);
     Movie(int, string, string, string, int, int, string, float, string, string);

@@ -6,13 +6,9 @@
 
 void printColor(string, int = 0);
 
-Show::Show(string title, tm date, Hall hallOfShow) : hallOfShow(hallOfShow) {
-	this->title = title;
+Show::Show(int showID, tm date, Hall hallOfShow) : hallOfShow(hallOfShow) {
+	this->showID = showID;
 	this->date = date;
-}
-
-string Show::getTitle() {
-	return this->title;
 }
 
 tm Show::getDate() {
@@ -24,7 +20,7 @@ int Show::getHallId() {
 }
 
 void Show::showHallSeatingPlan() {
-	printColor(title, 1);
+	//printColor(title, 1);
 	cout << " " << asctime(&date) << endl;
 	hallOfShow.showSeatingPlan();
 }

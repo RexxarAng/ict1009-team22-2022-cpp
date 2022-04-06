@@ -7,12 +7,11 @@ using namespace std;
 
 class Show {
 private:
-	string title;
+	int showID;
 	tm date;
 	Hall hallOfShow;
 public:
-	Show(string, tm, Hall);
-	string getTitle();
+	Show(int, tm, Hall);
 	tm getDate();
 	int getHallId();
 	void showHallSeatingPlan();

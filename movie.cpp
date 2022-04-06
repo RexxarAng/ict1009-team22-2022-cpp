@@ -53,4 +53,3 @@ int Movie::getDuration() {
 void Movie::setDuration(int runtime) {
     this->runtime = runtime;
 }
-
