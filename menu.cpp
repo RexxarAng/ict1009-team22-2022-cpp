@@ -10,11 +10,10 @@
 #include "booking_controller.h"
 #include "movie.h"
 #include "menu.h"
-#include "screen_utility.h"
-using namespace std;
 
 void openMenu(MenuItem* p_menu, unsigned int item_quantity)
 {
+
     unsigned int i = 0;
     // Display the menu
     for (i = 0; i < item_quantity; ++i)
@@ -68,7 +67,7 @@ MenuItem admin_main_menu[] =
 
 static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
 
-void displayMainMenu() {
+void displayMainMenu() {y
     while (true) {
         ScreenUtility::clearScreen();
         cout << "Movie Booking System" << endl;

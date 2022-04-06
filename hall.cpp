@@ -59,8 +59,6 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 	}
 	cout << endl;
 	printLegend();
-	
-
 }
 
 bool Hall::bookSeat(int row, int column) {
@@ -176,4 +174,3 @@ void Hall::deserialize(string dataString) {
         }
     }
 }
-

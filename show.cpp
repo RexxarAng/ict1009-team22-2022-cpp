@@ -15,6 +15,10 @@ Show::Show(string title, string time, Hall hall) {
     this->hall = std::move(hall);
 }
 
+tm Show::getDate() {
+	return this->date;
+
+  
 string Show::getTitle() {
 	return this->title;
 }

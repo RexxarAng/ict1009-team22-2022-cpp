@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable : 4996)
 #include <ctime>
 #include <string>
 #include "hall.h"
@@ -9,6 +10,7 @@ using namespace std;
 
 class Show : public AbstractDataModel {
 private:
+  int showID;
 	string title;
 	string time;
 	Hall hall;

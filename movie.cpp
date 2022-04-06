@@ -7,17 +7,27 @@ using namespace std;
 
 Movie::Movie() = default;
 
-Movie::Movie(string newTitle, string newDesc, string newGenre, int newDuration) {
-	this->title = std::move(newTitle);
-	this->desc = std::move(newDesc);
-	this->genre = std::move(newGenre);
-	this->duration = newDuration;
-}
+Movie::Movie(int movieID, string tconst, string title , string desc, int runtime, int maturity, string genre, float rating, string maincast, string language){
+    this -> movieID = movieID; //a unique running number for the system
+    this -> tconst = tconst; //a unique indentifier for the movie
+    this -> title = title; //title of move
+    this -> desc = desc; //breif description of movie
+    this -> genre = genre; //Genres of the movie
+    this -> runtime = runtime; //duration in mins
+    this -> maturity = maturity; // maturity of movie
+    this -> rating = rating; //rating upon 10
+    this -> mainCast = maincast; //main casts of movie
+    this -> language = language; //main langauge of movie
 
 Movie::~Movie() {
     cout << this->title << " is deleted." << endl;
-}
 
+}
+  
+int Movie::getmovieID() {
+	return this->movieID;
+}
+  
 string Movie::getTitle() {
 	return this->title;
 }
@@ -42,8 +52,8 @@ void Movie::setGenre(string newGenre) {
 	this->genre = std::move(newGenre);
 }
 
-int Movie::getDuration() const {
-	return this->duration;
+int Movie::getDuration() {
+	return this->runtime;
 }
 
 void Movie::setDuration(int newDuration) {

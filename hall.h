@@ -12,6 +12,7 @@ protected:
 	void printHallId() const;
 	void printScreen() const;
 	static void printLegend();
+
 public:
     Hall();
 	Hall(int, int);

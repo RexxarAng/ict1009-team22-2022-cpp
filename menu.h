@@ -12,6 +12,8 @@ void displayMainMenu();
 //void viewMovies();
 //void viewBookings();
 //void viewSomething();
+//void loadMovies();
+
 void displayAdminMenu();
 void displayMainMenu();
 //void quit();
