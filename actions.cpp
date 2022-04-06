@@ -5,7 +5,6 @@
 #include <sstream>
 #include <iterator>
 #include <list>
-
 #include "actions.h"
 #include "movie.h"
 #include "show.h"
@@ -35,7 +34,7 @@ void loadMovies() {
     catch(string fileOpenError){
         cerr << "ERROR: " << fileOpenError;
         cerr << " No movies loaded." << endl;
-        pause();
+        ScreenUtility::pause();
         exit(1);
     }
     cout << "DEBUG: loadMovies suceeded" << endl;
@@ -55,7 +54,7 @@ void loadMovies() {
             try{
                 Movie* newMovie = new Movie(index, row[0], row[1] , row[2], stoi(row[3]), stoi(row[4]), row[5], stof(row[6]), row[7], row[8]);
                 //create a new movie object with the data from the file
-                movies.insert(movies.end(), newMovie); //insert the movie object into a list of movies
+                movies->insert(movies->end(), newMovie); //insert the movie object into a list of movies
                 index ++;
                 cout << "DEBUG: Insert Sucessfull." << endl;
             }
@@ -76,29 +75,29 @@ void viewMovies() {
     /*This function prints all the movies that is currently showing, fired when user wants to browse catalogs*/
     system("cls");
     //Iterate
-    if (movies.size() > 0) {
+    if (movies->size() > 0) {
         //Printe
         cout << "=================================" << endl;
         cout << "CHAW THEATERS MOVIES NOW SHOWING: " << endl;
         cout << "=================================" << endl;
         
         //generate an array of menu items for menu engine to process
-        vector<Menu_Item> view_moviesMenu;
-        for (Movie* i : movies) {
-            int id = i-> getmovieID();
-            string text = i->getTitle();
-            char* textChar;
-            textChar = &text[0];
-            Menu_Item* menu_Item = new Menu_Item(id, textChar, viewSomething);
-            view_moviesMenu.push_back(*menu_Item);
-        }
+//        vector<Menu_Item> view_moviesMenu;
+//        for (Movie* i : movies) {
+//            int id = i-> getmovieID();
+//            string text = i->getTitle();
+//            char* textChar;
+//            textChar = &text[0];
+//            Menu_Item* menu_Item = new Menu_Item(id, textChar, viewSomething);
+//            view_moviesMenu.push_back(*menu_Item);
+//        }
         // Process the menu
-        Menu_Engine(view_moviesMenu, 5);
+//        Menu_Engine(view_moviesMenu, 5);
     }
     else {
         cout << "No movies currently showing" << endl;
     }
-    pause();
+    ScreenUtility::pause();
     displayMainMenu();
 }
 
@@ -189,7 +188,7 @@ void viewSomething() {
     cout << "What's the movie ID?" << endl;
     int movieID;
     cin >> movieID;
-    for (Movie* i : movies) {
+    for (Movie* i : *movies) {
         if (i->getmovieID() == movieID) {
             Movie selectedMovie = *i;
             cout << "Which time slots do you want?" << endl << endl;
@@ -375,4 +374,5 @@ vector<string> readCSVRow(const string &row) {
         }
     }
     return fields;
+}
 }

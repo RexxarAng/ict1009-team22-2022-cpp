@@ -18,80 +18,36 @@ Movie::Movie(int movieID, string tconst, string title , string desc, int runtime
     this -> rating = rating; //rating upon 10
     this -> mainCast = maincast; //main casts of movie
     this -> language = language; //main langauge of movie
-
-Movie::~Movie() {
-    cout << this->title << " is deleted." << endl;
-
 }
-<<<<<<< Updated upstream
-  
-int Movie::getmovieID() {
-	return this->movieID;
-}
-  
-string Movie::getTitle() {
-	return this->title;
-}
-
-void Movie::setTitle(string newTitle) {
-	this->title = std::move(newTitle);
-}
-
-string Movie::getDesc() {
-	return this->desc;
-}
-
-void Movie::setDesc(string newDesc) {
-	this->desc = std::move(newDesc);
-}
-
-string Movie::getGenre() {
-	return this->genre;
-}
-
-void Movie::setGenre(string newGenre) {
-	this->genre = std::move(newGenre);
-}
-
-int Movie::getDuration() {
-	return this->runtime;
-}
-
-void Movie::setDuration(int newDuration) {
-	this->duration = newDuration;
-}
-
-string Movie::serialize() {
-    string serializedString = this->getTitle();
-    serializedString += "," + this->getDesc();
-    serializedString += "," + this->getGenre();
-    serializedString += "," + to_string(this->getDuration());
-    return serializedString;
-}
-
-void Movie::deserialize(string dataString) {
-    vector<string> attributes = Movie::extractAttributesFromDataString(dataString);
-
-    cout << attributes.size() << endl;
-    if (attributes.size() < 4) throw ParseAttributeMismatchException();
-
-    this->setTitle(attributes[0]);
-    this->setDesc(attributes[1]);
-    this->setGenre(attributes[2]);
-    this->setDuration(stoi(attributes[3]));
-}
-=======
 //getters and setters of movies class
 int Movie::getmovieID(){ return (this->movieID);}
 void Movie::setmovieID(int movieID){this->movieID = movieID;}
 string Movie::getTitle(){ return this->title;}
 string Movie::getDesc(){ return this->desc;}
 string Movie::getGenre(){ return this-> genre;}
-int Movie::getRuntime(){ return this->runtime;}
+int Movie::getDuration()(){ return this->duration;}
 int Movie::getMaturity(){ return this->maturity;}
 float Movie::getRating(){ return this->rating;}
 string Movie::getMainCast(){return this->mainCast;}
 string Movie::getLanguage(){return this->language;}
 bool Movie::getIsShowing(){return this->isShowing;}
 void Movie::setIsShowing(bool isShowing){this->isShowing = isShowing;}
->>>>>>> Stashed changes
+
+
+Movie::~Movie(){cout << this->title << " is deleted." << endl;}
+string Movie::serialize(){
+    string serializedString = this->getTitle();
+    serializedString += "," + this->getDesc();
+    serializedString += "," + this->getGenre();
+    serializedString += "," + to_string(this->getDuration());
+    return serializedString;
+}
+void Movie::deserialize(string dataString) {
+    vector<string> attributes = Movie::extractAttributesFromDataString(dataString);
+    cout << attributes.size() << endl;
+    if (attributes.size() < 4) throw ParseAttributeMismatchException();
+    this->setTitle(attributes[0]);
+    this->setDesc(attributes[1]);
+    this->setGenre(attributes[2]);
+    this->setDuration(stoi(attributes[3]));
+}
