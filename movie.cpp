@@ -23,6 +23,7 @@ Movie::~Movie() {
     cout << this->title << " is deleted." << endl;
 
 }
+<<<<<<< Updated upstream
   
 int Movie::getmovieID() {
 	return this->movieID;
@@ -79,3 +80,18 @@ void Movie::deserialize(string dataString) {
     this->setGenre(attributes[2]);
     this->setDuration(stoi(attributes[3]));
 }
+=======
+//getters and setters of movies class
+int Movie::getmovieID(){ return (this->movieID);}
+void Movie::setmovieID(int movieID){this->movieID = movieID;}
+string Movie::getTitle(){ return this->title;}
+string Movie::getDesc(){ return this->desc;}
+string Movie::getGenre(){ return this-> genre;}
+int Movie::getRuntime(){ return this->runtime;}
+int Movie::getMaturity(){ return this->maturity;}
+float Movie::getRating(){ return this->rating;}
+string Movie::getMainCast(){return this->mainCast;}
+string Movie::getLanguage(){return this->language;}
+bool Movie::getIsShowing(){return this->isShowing;}
+void Movie::setIsShowing(bool isShowing){this->isShowing = isShowing;}
+>>>>>>> Stashed changes

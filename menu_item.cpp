@@ -8,4 +8,3 @@ MenuItem::MenuItem(unsigned int number, const char* text, MenuProcessingFunction
 	this->text = text;
 	this->p_processing_function = p_processing_function;
 }
-
