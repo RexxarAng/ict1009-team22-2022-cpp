@@ -22,35 +22,15 @@ void ShowController::viewShows() {
     if (!shows->empty()) {
         while (true) {
             ScreenUtility::clearScreen();
-            int movieIndex = 1;
-            cout << "Movies now showing: " << endl;
-            cout << "==============================" << endl;
-            for (Show* i : *shows) {
-                cout << movieIndex << ") " << i->getTitle() << endl;
-                movieIndex++;
-            }
-            cout << "To quit select: -1" << endl;
-            cout << "Please select the movies by index: ";
-            unsigned int selection;
-            cin >> selection;
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(256, '\n');
-                continue;
-            }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
-            if (selection > 0 && selection <= shows->size()) {
-                Show* selectedShow = shows->at(selection - 1);
-                cout << "You have selected " << selectedShow->getTitle()  << " " << selectedShow->getTime() << endl;
-                selectedShow->showHallSeatingPlan();
-                ScreenUtility::pause();
-            }
-            else if (selection == -1) {
+            ShowController::displayShowList();
+            Show* selectedShow = ShowController::promptShowSelection();
+            if (selectedShow == nullptr) {
                 break;
             }
-            else {
-                cout << "Invalid option, please try again." << endl;
-            }
+            cout << "You have selected " << selectedShow->getTitle()  << " " << selectedShow->getTime() << endl;
+            selectedShow->showHallSeatingPlan();
+            ScreenUtility::pause();
+            
         }
     }
     else {
@@ -110,5 +90,57 @@ void ShowController::addShows() {
             cont = false;
     }
     showRepository.save();
+}
+
+void ShowController::displayShowList() {
+    extern vector<Show*>* shows;
+    int movieIndex = 1;
+    cout << "Show times of movies: " << endl;
+    cout << "==============================" << endl;
+    for (Show* i : *shows) {
+        cout << movieIndex << ") " << i->getTitle() << " " << i->getTime() << endl;
+        movieIndex++;
+    }
+    cout << endl;
+}
+
+Show* ShowController::promptShowSelection() {
+    extern vector<Show*>* shows;
+    if (!shows->empty()) {
+        while (true) {
+            cout << "To quit select: -1" << endl;
+            cout << "Please select the movies by index: ";
+            unsigned int selection;
+            cin >> selection;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(256, '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+            if (selection > 0 && selection <= shows->size()) {
+                return shows->at(selection - 1);
+            }
+            else if (selection == -1) {
+                return nullptr;
+            }
+            else {
+                cout << "Invalid option, please try again." << endl;
+            }
+        }
+    }
+    return nullptr;
+}
+
+void ShowController::removeShows(Movie* removedMovie) {
+    extern vector<Show*>* shows;
+    for (Show* i: *shows) {
+        
+    }
+}
+
+void ShowController::removeShows(Hall* removedHall) {
+    extern vector<Show*>* shows;
+
 }
 

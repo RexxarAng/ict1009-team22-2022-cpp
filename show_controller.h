@@ -4,14 +4,18 @@
 #include "movie.h"
 #include "colors.h"
 #include "show.h"
+#include "hall.h"
 
 class ShowController {
 private:
 public:
     static void viewShows();
     static void displayShowList();
+    static Show* promptShowSelection();
     static void addShows();
-    static void removeShows();
+    static void removeShows(Hall*);
+    static void removeShows(Movie*);
+
 };
 
 

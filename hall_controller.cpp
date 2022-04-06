@@ -4,6 +4,7 @@
 #include "menu.h"
 
 extern Repository<Hall> hallRepository;
+extern Repository<Show> showRepository;
 
 void HallController::displayHallList() {
     extern vector<Hall*>* halls;
@@ -49,6 +50,7 @@ void HallController::viewHalls() {
     else {
         cout << "No halls available" << endl;
     }
+    cout << endl;
     ScreenUtility::pause();
 }
 
@@ -93,56 +95,51 @@ void HallController::addHalls() {
 }
 
 void HallController::removeHalls() {
+    extern vector<Show*>* shows;
     extern vector<Hall*>* halls;
     while (true) {
         ScreenUtility::clearScreen();
         if (!halls->empty()) {
             displayHallList();
-            cout << endl;
-            cout << "To quit select: -1" << endl;
-            cout << "Please select the hall by index: ";
-            unsigned int selection;
-            cin >> selection;
-            if (cin.fail()) {
+            cout << endl << "Which hall would you like to remove?" << endl;
+            Hall* hallSelected = promptHallSelection();
+            if (hallSelected == nullptr)
+                break;
+            cout << "You have selected Hall " << hallSelected->getId() << endl;
+            cout << "Are you sure you want to remove this hall (Y/N): ";
+            string input;
+            cin >> input;
+            while (cin.fail()) {
+                cout << "Please enter characters only";
                 cin.clear();
                 cin.ignore(256, '\n');
+                cin >> input;
+            }
+            if (toupper(input.at(0)) != 'Y') {
+                cout << "Invalid selection" << endl;
+                ScreenUtility::pause();
                 continue;
             }
+
+            for (auto& hallPtr : *shows) {
+                if (hallPtr->getHallId() == hallSelected->getId()) {
+                    delete hallPtr;
+                    hallPtr = nullptr;
+                }
+            }
+            shows->erase(remove(shows->begin(), shows->end(), nullptr), shows->end());
+            cout << "Hall " << hallSelected->getId() << " successfully deleted" << endl;;
+            halls->erase(remove(halls->begin(), halls->end(), hallSelected));
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
-            if (selection > 0 && selection <= halls->size()) {
-                cout << "You have selected Hall " << halls->at(selection - 1)->getId() << endl;
-                cout << "Are you sure you want to remove this hall (Y/N): ";
-                string input;
-                cin >> input;
-                while (cin.fail()) {
-                    cout << "Please enter characters only";
-                    cin.clear();
-                    cin.ignore(256, '\n');
-                    cin >> input;
-                }
-                if (toupper(input.at(0)) != 'Y') {
-                    cout << "Invalid selection" << endl;
-                    ScreenUtility::pause();
-                    continue;
-                }
-                cout << "Hall " << halls->at(selection - 1)->getId() << " successfully deleted" << endl;;
-                halls->erase(halls->begin() + selection - 1);
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
-                ScreenUtility::pause();
-            }
-            else if (selection == -1) {
-                break;
-            }
-            else {
-                cout << "Invalid option, please try again." << endl;
-                ScreenUtility::pause();
-            }
+            ScreenUtility::pause();
         }
         else {
             cout << "No halls currently" << endl;
             break;
         }
     }
+    showRepository.save();
+    hallRepository.save();
     ScreenUtility::pause();
     displayAdminMenu();
 }
@@ -150,7 +147,6 @@ void HallController::removeHalls() {
 Hall* HallController::promptHallSelection()
 {
     extern vector<Hall*>* halls;
-    ScreenUtility::clearScreen();
     if (!halls->empty()) {
         while (true) {
             cout << "To quit select: -1" << endl;
