@@ -4,11 +4,16 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "movie_controller.h"
+#include "hall_controller.h"
+#include "show_controller.h"
+#include "booking_controller.h"
 #include "movie.h"
 #include "menu.h"
-using namespace std;
 
-void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity){
+void openMenu(MenuItem* p_menu, unsigned int item_quantity)
+{
+
     unsigned int i = 0;
     // Display the menu
     for (i = 0; i < item_quantity; ++i)
@@ -37,43 +42,56 @@ void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity){
     }
 }
 
-Menu_Item main_menu[] =
+
+MenuItem main_menu[] =
 {
-    {1, "Browse Catalog", viewMovies},
-    {2, "Buy Tickets", viewSomething},
-    {3, "View Bookings", viewBookings},
+    {1, "View Movies", MovieController::viewMovies},
+    {2, "Book Movies", BookingController::bookMovies},
+    {3, "View Halls", HallController::viewHalls},
     {4, "Admin", displayAdminMenu},
-    {5, "Quit", quit}
+    {5, "Quit", ScreenUtility::quit}
 };
 
 static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
 
-Menu_Item admin_main_menu[] =
+MenuItem admin_main_menu[] =
 {
-    {1, "Add Movies", addMovies},
-    {2, "Add Shows", addShows},
-    {3, "Back", displayMainMenu},
-    {4, "Quit", quit}
+    {1, "Add Movies", MovieController::addMovies},
+    {2, "Remove Movies", MovieController::removeMovies},
+    {3, "Add Shows", ShowController::addShows},
+    {4, "Add Halls", HallController::addHalls},
+    {5, "Remove Halls", HallController::removeHalls},
+    {6, "Back", displayMainMenu},
+    {7, "Quit", ScreenUtility::quit}
 };
 
 static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
 
-void displayMainMenu() {
-    system("cls");
-    cout << "=================================" << endl;
-    cout << "Chaw Theatre Movie Booking System" << endl;
-    cout << "=================================" << endl << endl;
-    cout << "Welcome to Chaw Theatres! " << endl;
-    cout << "What would you like to do today?" << endl << endl;;
-    // Process the menu
-    Menu_Engine(&main_menu[0], main_menu_size);
+void displayMainMenu() {y
+    while (true) {
+        ScreenUtility::clearScreen();
+        cout << "Movie Booking System" << endl;
+        cout << "==============================" << endl;
+        cout << "Main Menu" << endl;
+        // Process the menu
+        openMenu(&main_menu[0], main_menu_size);
+    }
 }
 
 void displayAdminMenu() {
-    system("cls");
-    cout << "==============================" << endl;
-    cout << "Admin Movie Booking System" << endl;
-    cout << "==============================" << endl;
-    cout << "Main Menu" << endl;
-    Menu_Engine(&admin_main_menu[0], admin_menu_size);
+    while (true) {
+        ScreenUtility::clearScreen();
+        cout << "Admin Movie Booking System" << endl;
+        cout << "==============================" << endl;
+        cout << "Admin Menu" << endl;
+        openMenu(&admin_main_menu[0], admin_menu_size);
+    }
 }
+
+//void clearScreen() {
+//#ifdef _WIN32
+//    system("cls");
+//#else
+//    system("clear");
+//#endif
+//}

@@ -1,24 +1,26 @@
-#include "hall.h"
 #include <string>
 #include <iostream>
 
+#include "hall.h"
+#include "colors.h"
+
 using namespace std;
 
-void printColor(string, int=0);
 int Hall::current_id = 0;
 
+Hall::Hall() = default;
+
 Hall::Hall(int noOfRows, int noOfCols) {
-	this->noOfRows = noOfRows;
-	this->noOfCols = noOfCols;
-	current_id++;
-	this->id = current_id;
-	seating = new bool* [noOfRows];
-	for (int i = 0; i < noOfRows; i++) {
-		seating[i] = new bool[noOfCols];
-	}
+    this->noOfRows = noOfRows;
+    this->noOfCols = noOfCols;
+    current_id++;
+    this->id = current_id;
+	// Create seating where all is not booked
+	vector<vector<bool>> newSeating(noOfRows, vector<bool>(noOfCols, false));
+	this->seating = newSeating;
 }
 
-int Hall::getId() {
+int Hall::getId() const {
 	return this->id;
 }
 
@@ -45,7 +47,7 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 		for (int c = 0; c < noOfCols; c++) {
 			printColor("[", -1);
 			// is booked
-			if (!seating[r][c]) {
+			if (seating[r][c]) {
 				printColor(" x ", 2);
 			}
 			else {
@@ -64,19 +66,19 @@ bool Hall::bookSeat(int row, int column) {
 		cout << "Invalid seat" << endl;
 		return false;
 	}
-	if (seating[row][column] == false) {
+	if (seating[row][column]) {
 		cout << "Seat is already occupied" << endl;
 		return false;
 	}
-	seating[row][column] = false;
+	seating[row][column] = true;
 	cout << "Successfully booked " << (char)('A' + row) << column << endl;
 	return true;
 }
 
-void Hall::printHallId() {
+void Hall::printHallId() const {
 	string hallId = "Hall " + to_string(this->id);
 	int lengthOfScreen = noOfCols * 5;
-	int lengthOfWord = (int)size(hallId);
+	int lengthOfWord = hallId.size();
 	int halfDashes = (lengthOfScreen - lengthOfWord) / 2;
 	cout << "    ";
 	for (int c = 0; c < halfDashes - 1; c++) {
@@ -88,10 +90,9 @@ void Hall::printHallId() {
 	}
 	cout << endl << endl;
 }
-
-void Hall::printScreen() {
+void Hall::printScreen() const {
 	string screen = "SCREEN";
-	int lengthOfWord = (int)size(screen);
+	int lengthOfWord = screen.size();
 	int lengthOfScreen = noOfCols * 5;
 	int halfDashes = (lengthOfScreen - lengthOfWord) / 2;
 	printColor("   +", -1);
@@ -129,4 +130,47 @@ void Hall::printLegend() {
 	printColor("]", -1);
 	printColor(" Sold");
 	cout << endl << endl;
+}
+
+string Hall::serialize() {
+    string serializedString = to_string(this->id);
+    serializedString += "," + to_string(this->noOfRows);
+    serializedString += "," + to_string(this->noOfCols);
+
+    serializedString += ",";
+    int i = 0;
+    for (int r = 0; r < this->noOfRows; r++) {
+        for (int c = 0; c < this->noOfCols; c++) {
+            if (this->seating[r][c]) serializedString += "1";
+            else serializedString += "0";
+            serializedString += '|';
+        }
+    }
+
+    return serializedString;
+}
+
+void Hall::deserialize(string dataString) {
+    vector<string> attributes = Hall::extractAttributesFromDataString(dataString);
+
+    cout << attributes.size() << endl;
+    if (attributes.size() < 4) throw ParseAttributeMismatchException();
+
+    this->id = stoi(attributes[0]);
+    this->noOfRows = stoi(attributes[1]);
+    this->noOfCols = stoi(attributes[2]);
+    this->current_id = id + 1;
+
+    // Create booking seating
+	vector<vector<bool>> newSeating(noOfRows, vector<bool>(noOfCols, false));
+	this->seating = newSeating;
+
+    vector<string> seatingDataString = Hall::extractAttributesFromDataString(attributes[3], '|');
+    int i = 0;
+    for (int r = 0; r < this->noOfRows; r++) {
+        for (int c = 0; c < this->noOfCols; c++) {
+            this->seating[r][c] = seatingDataString[i] == "1";
+            i++;
+        }
+    }
 }

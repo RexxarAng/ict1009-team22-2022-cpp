@@ -2,25 +2,58 @@
 #include <ctime>
 #include <sstream>
 #include <iostream>
+#include <utility>
 #include "show.h"
 
 void printColor(string, int = 0);
 
-Show::Show(int showID, tm date, Hall hallOfShow) : hallOfShow(hallOfShow) {
-	this->showID = showID;
-	this->date = date;
+Show::Show() = default;
+
+Show::Show(string title, string time, Hall hall) {
+	this->title = std::move(title);
+	this->time = std::move(time);
+    this->hall = std::move(hall);
 }
 
 tm Show::getDate() {
 	return this->date;
+
+  
+string Show::getTitle() {
+	return this->title;
+}
+
+string Show::getTime() {
+    return this->time;
+}
+
+Hall* Show::getHall() {
+    return &(this->hall);
 }
 
 int Show::getHallId() {
-	return hallOfShow.getId();
+	return hall.getId();
 }
 
 void Show::showHallSeatingPlan() {
-	//printColor(title, 1);
-	cout << " " << asctime(&date) << endl;
-	hallOfShow.showSeatingPlan();
+	printColor(title, 1);
+	cout << " " << this->time << endl;
+	hall.showSeatingPlan();
+}
+
+string Show::serialize() {
+    string serializedString = this->getTitle();
+    serializedString += ";" + this->getTime();
+    serializedString += ";" + this->getHall()->serialize();
+    return serializedString;
+}
+
+void Show::deserialize(string dataString) {
+    vector<string> attributes = Show::extractAttributesFromDataString(dataString, ';');
+
+    if (attributes.size() < 3) throw ParseAttributeMismatchException();
+
+    this->title = std::move(attributes[0]);
+    this->time = std::move(attributes[1]);
+    this->hall.deserialize(attributes[2]);
 }

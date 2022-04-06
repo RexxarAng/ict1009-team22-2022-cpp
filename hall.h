@@ -1,19 +1,26 @@
 #pragma once
-#include "booking.h"
+#include "repository_template.h"
+#include "repository_exception.h"
 
-class Hall {
-private:
-	int id;
-	int noOfRows;
-	int noOfCols;
-	bool** seating;
-	void printHallId();
-	void printScreen();
-	void printLegend();
-public:
-	Hall(int, int);
+class Hall : public AbstractDataModel {
+protected:
+	int id{};
+	int noOfRows{};
+	int noOfCols{};
 	static int current_id;
-	int getId();
+	vector<vector<bool>> seating{};
+	void printHallId() const;
+	void printScreen() const;
+	static void printLegend();
+
+public:
+    Hall();
+	Hall(int, int);
+	int getId() const;
 	void showSeatingPlan(bool showColumnInformation = true, bool showRowInformation = true);
 	bool bookSeat(int, int);
+
+    // AbstractDataModel
+    string serialize() override;
+    void deserialize(string) override;
 };

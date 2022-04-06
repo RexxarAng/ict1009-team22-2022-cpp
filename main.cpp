@@ -1,23 +1,27 @@
 #include "main.h"
 using namespace std;
 
-extern list<Movie*>movies;
+extern Repository<Movie> movieRepository;
+extern Repository<Hall> hallRepository;
+extern Repository<Show> showRepository;
 
 
+int main()
+{
+    movieRepository.load();
+    hallRepository.load();
+    showRepository.load();
 
-//list<Show*> loadShows() {
-//
-//}
-
-int main(){
-    loadMovies();
+// TODO: To be removed
+//    loadMovies();
     displayMainMenu();
-    Hall a(12, 6);
+    ScreenUtility::clearScreen();
+    Hall a(12, 12);
     string movieName = "Venom";
     time_t now = time(0);
     tm localtm = *localtime(&now);
-    int id = 1;
-    Show s(id, localtm, a);
+    Show s(movieName, "0800 hrs", a);
+
     //a.bookSeat(2, 4);
     //a.bookSeat(2, 5);
 
@@ -26,7 +30,7 @@ int main(){
 
 //  s.showHallSeatingPlan();
 
-    pause();
+    ScreenUtility::clearScreen();
 
     return 0;
 

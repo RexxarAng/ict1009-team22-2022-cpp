@@ -1,20 +1,24 @@
 #pragma once
 #include <iostream>
 #include "menu_item.h"
+#include "actions.h"
 
 using namespace std;
 
-void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity);
+void openMenu(MenuItem* p_menu, unsigned int item_quantity);
 
 void displayMainMenu();
 
-void loadMovies();
-void viewMovies();
-void viewBookings();
-void viewSomething();
+//void viewMovies();
+//void viewBookings();
+//void viewSomething();
+//void loadMovies();
+
 void displayAdminMenu();
 void displayMainMenu();
-void quit();
-void addMovies();
+//void quit();
+//void addMovies();
 void addShows();
-void pause();
+void addHalls();
+//void pause();
+//void clearScreen();

@@ -6,7 +6,7 @@
 using namespace std;
 
 #ifdef _WIN32
-/* _Win32 is usually defined by compilers targeting 32 or   64 bit Windows systems */
+/* _Win32 is usually defined by compilers targeting 32 or 64 bit Windows systems */
 #include <windows.h>
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 void printColor(string text, int style = 0) {
