@@ -77,10 +77,23 @@ void viewMovies() {
     system("cls");
     //Iterate
     if (movies.size() > 0) {
-        cout << "Movies now showing: " << endl;
+        //Printe
+        cout << "=================================" << endl;
+        cout << "CHAW THEATERS MOVIES NOW SHOWING: " << endl;
+        cout << "=================================" << endl;
+        
+        //generate an array of menu items for menu engine to process
+        vector<Menu_Item> view_moviesMenu;
         for (Movie* i : movies) {
-            cout << i->getTitle() << endl;
+            int id = i-> getmovieID();
+            string text = i->getTitle();
+            char* textChar;
+            textChar = &text[0];
+            Menu_Item* menu_Item = new Menu_Item(id, textChar, viewSomething);
+            view_moviesMenu.push_back(*menu_Item);
         }
+        // Process the menu
+        Menu_Engine(view_moviesMenu, 5);
     }
     else {
         cout << "No movies currently showing" << endl;

@@ -28,14 +28,21 @@ private:
     bool isShowing; //if the movie is showing
     vector<Show> shows;
 public:
+<<<<<<< Updated upstream
     Movie(); // for deserialization
 	Movie(int, string, string, string, int, int, string, float, string, string);
 	~Movie();
+=======
+    //Parameterised Constructor
+    Movie(int, string, string, string, int, int, string, float, string, string);
+    //Getters and Setters
+    int getmovieID();
+    void setmovieID(int);
+>>>>>>> Stashed changes
 	string getTitle();
-	void setTitle(string);
 	string getDesc();
-	void setDesc(string);
 	string getGenre();
+<<<<<<< Updated upstream
 	void setGenre(string);
 	int getDuration() const;
 	void setDuration(int);
@@ -45,4 +52,13 @@ public:
 	int getmovieID();
 	void setmovieID(int);
 
+=======
+    int getRuntime();
+    int getMaturity();
+    float getRating();
+    string getMainCast();
+    string getLanguage();
+    bool getIsShowing();
+    void setIsShowing(bool);
+>>>>>>> Stashed changes
 };

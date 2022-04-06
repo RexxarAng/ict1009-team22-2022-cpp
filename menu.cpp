@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include <sstream>
 #include "movie_controller.h"
 #include "hall_controller.h"
@@ -11,9 +10,46 @@
 #include "movie.h"
 #include "menu.h"
 
+<<<<<<< Updated upstream
 void openMenu(MenuItem* p_menu, unsigned int item_quantity)
 {
 
+=======
+
+void Menu_Engine(Menu_Item* p_menu, unsigned int item_quantity){
+    /*This is a menu engine that takes in bunch of menu items, and the number of elements, then
+     prints out the items, followed by allowing the use to enter a selection. */
+    unsigned int i = 0;
+    // Display the menu
+    for (i = 0; i < item_quantity; ++i)
+    {
+        cout << p_menu[i].number
+            << ". "
+            << p_menu[i].text
+            << "\n";
+    }
+    cout << endl << "Enter selection: ";
+    unsigned int selection;
+    cin >> selection;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
+    for (i = 0; i < item_quantity; ++i)
+    {
+        if (selection == p_menu[i].number)
+        {
+            // Execute the processing function for the selection.
+            (p_menu[i].p_processing_function)();
+            break;
+        }
+    }
+    if (i >= item_quantity)
+    {
+        cout << "invalid selection\n";
+    }
+}
+void Menu_Engine(vector<Menu_Item> p_menu, unsigned int item_quantity){
+    /*This is a menu engine that takes in bunch of menu items, and the number of elements, then
+     prints out the items, followed by allowing the use to enter a selection. */
+>>>>>>> Stashed changes
     unsigned int i = 0;
     // Display the menu
     for (i = 0; i < item_quantity; ++i)
