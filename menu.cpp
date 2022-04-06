@@ -88,11 +88,3 @@ void displayAdminMenu() {
         openMenu(&admin_main_menu[0], admin_menu_size);
     }
 }
-
-//void clearScreen() {
-//#ifdef _WIN32
-//    system("cls");
-//#else
-//    system("clear");
-//#endif
-//}

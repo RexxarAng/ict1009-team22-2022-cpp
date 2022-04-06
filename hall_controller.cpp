@@ -2,6 +2,7 @@
 #include "repository.h"
 #include "hall.h"
 #include "menu.h"
+#include "show.h"
 
 extern Repository<Hall> hallRepository;
 extern Repository<Show> showRepository;

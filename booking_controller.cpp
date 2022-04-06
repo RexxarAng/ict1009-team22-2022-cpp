@@ -40,7 +40,7 @@ void BookingController::promptSeatSelection(Show* selectedShow) {
             printColor("ERROR -- Invalid option\n", 2);
             ScreenUtility::pause();
         }
-        else if (selection == "q") {
+        else if (tolower(selection.at(0)) == 'q') {
             ScreenUtility::clearScreen();
             break;
         }
