@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include "screen_utility.h"
+#include "colors.h"
 
 using namespace std;
 
@@ -36,8 +37,7 @@ bool Repository<T>::load() {
     string word, line;
     dataSourceFile.open(this->filename);
     if (!dataSourceFile) {
-        cout << "No records loaded" << endl;
-        ScreenUtility::pause();
+        throw ParseFileNotFoundException(typeid(this).name(), filename);
     }
     else {
         cout << "Loading records..." << endl;
@@ -57,8 +57,10 @@ bool Repository<T>::load() {
                 dataModel->deserialize(line);
                 this->records.insert(this->records.end(), dataModel);
             }
-            catch (exception& e) {
-                cout << "Record not loaded due to : " << e.what() << endl;
+            catch (ParseException& e) {
+                printColor("Warning: ", 2);
+                cout << e.what() << endl;
+                ScreenUtility::pause();
             }
 
             if (dataSourceFile.eof())

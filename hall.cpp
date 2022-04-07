@@ -154,10 +154,11 @@ string Hall::serialize() {
 }
 
 void Hall::deserialize(string dataString) {
+    const int expectedSize = 4;
     vector<string> attributes = Hall::extractAttributesFromDataString(dataString);
 
-    //cout << attributes.size() << endl;
-    if (attributes.size() < 4) throw ParseAttributeMismatchException();
+    if (attributes.size() < expectedSize)
+        throw ParseAttributeMismatchException(typeid(this).name(), expectedSize, (int)attributes.size());
 
     this->id = stoi(attributes[0]);
     this->noOfRows = stoi(attributes[1]);

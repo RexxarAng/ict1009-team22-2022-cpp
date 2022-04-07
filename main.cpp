@@ -8,9 +8,16 @@ extern Repository<Show> showRepository;
 
 int main()
 {
-    movieRepository.load();
-    hallRepository.load();
-    showRepository.load();
+    try {
+        movieRepository.load();
+        hallRepository.load();
+        showRepository.load();
+    }
+    catch (ParseException& e) {
+        printColor("Error: ", 2);
+        cout << e.what() << endl;
+        ScreenUtility::pause();
+    }
 
     displayMainMenu();
 
