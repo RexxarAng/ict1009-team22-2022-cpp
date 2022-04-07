@@ -161,35 +161,14 @@ void MovieController::viewBookingByShowTime(Show* showtime) {
 void MovieController::addMovies() {
     extern vector<Movie*>* movies;
     vector<string> row;
-    string line, word, movieName, currentMovieName, movieDesc, movieGenre;
-    int movieDuration;
-    cout << "Adding Movies..." << endl;
+    string line, word;
     bool cont = true;
     while (cont) {
-        cout << "Movie Name: ";
-        getline(cin, movieName);
-        for (Movie* i : *movies) {
-            if (movieName == i->getTitle()) {
-                cout << "Movie already exists";
-                ScreenUtility::pause();
-                addMovies();
-            }
-
-        }
-        cout << "Movie Description: ";
-        getline(cin, movieDesc);
-        cout << "Movie Genre: ";
-        getline(cin, movieGenre);
-        cout << "Movie Duration(in mins): ";
-        cin >> movieDuration;
-        while (cin.fail()) {
-            cout << "Error" << endl;
-            cin.clear();
-            cin.ignore(256, '\n');
-            cin >> movieDuration;
-        }
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        Movie* newMovie = new Movie(movieName, movieDesc, movieGenre, movieDuration);
+        ScreenUtility::clearScreen();
+        MovieController::displayMovieList();
+        cout << "Adding Movies..." << endl;
+        Movie* newMovie = new Movie();
+        cin >> newMovie;
         movies->insert(movies->end(), newMovie);
         string input;
         cout << "Do you still want to add more movies(Y/N): ";
@@ -211,6 +190,7 @@ void MovieController::displayMovieList() {
             cout << movieIndex << ") " << i->getTitle() << endl;
             movieIndex++;
         }
+        cout << endl;
     }
 }
 

@@ -178,34 +178,34 @@ void Hall::deserialize(string dataString) {
     }
 }
 
-istream& operator>>(istream& in, Hall* selectedHall)
+istream& operator>>(istream& in, Hall* newHall)
 {
 	int rows, cols;
 	cout << "Hall rows: ";
-	in >> selectedHall->noOfRows;
+	in >> newHall->noOfRows;
 	while (in.fail()) {
 		cout << "Invalid input, only accept numbers" << endl;
 		in.clear();
 		in.ignore(256, '\n');
 		ScreenUtility::pause();
 		cout << "Hall rows: ";
-		in >> selectedHall->noOfRows;
+		in >> newHall->noOfRows;
 	}
 	in.ignore(numeric_limits<streamsize>::max(), '\n');
 	cout << "Hall columns: ";
-	in >> selectedHall->noOfCols;
+	in >> newHall->noOfCols;
 	while (in.fail()) {
 		cout << "Invalid input, only accept numbers" << endl;
 		in.clear();
 		in.ignore(256, '\n');
 		ScreenUtility::pause();
 		cout << "Hall columns: ";
-		in >> selectedHall->noOfCols;
+		in >> newHall->noOfCols;
 	}
 	in.ignore(numeric_limits<streamsize>::max(), '\n');
-	vector<vector<bool>> newSeating(selectedHall->noOfRows, vector<bool>(selectedHall->noOfCols, false));
-	selectedHall->seating = newSeating;
-	selectedHall->current_id++;
-	selectedHall->id = selectedHall->current_id;
+	vector<vector<bool>> newSeating(newHall->noOfRows, vector<bool>(newHall->noOfCols, false));
+	newHall->seating = newSeating;
+	newHall->current_id++;
+	newHall->id = newHall->current_id;
 	return in;
 }

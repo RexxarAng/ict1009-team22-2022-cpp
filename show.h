@@ -18,9 +18,11 @@ public:
 	string getTitle();
     string getTime();
 	int getHallId();
+	void setHall(Hall);
+	void setTitle(string);
 	void showHallSeatingPlan();
     Hall* getHall();
-
+	friend istream& operator>>(istream&, Show*);
     // AbstractDataModel
     string serialize() override;
     void deserialize(string) override;

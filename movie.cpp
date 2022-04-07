@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include "screen_utility.h"
 
 using namespace std;
 
@@ -68,4 +69,45 @@ void Movie::deserialize(string dataString) {
     this->setDesc(attributes[1]);
     this->setGenre(attributes[2]);
     this->setDuration(stoi(attributes[3]));
+}
+
+istream& operator>>(istream& in, Movie* newMovie)
+{
+    extern vector<Movie*>* movies;
+    string movieName, currentMovieName, movieDesc, movieGenre;
+    int movieDuration;
+    while (true) {
+        bool isExist = false;
+        cout << "Movie Name: ";
+        getline(in, movieName);
+        for (Movie* i : *movies) {
+            if (movieName == i->getTitle()) {
+                cout << "Movie already exists";
+                isExist = true;
+                ScreenUtility::pause();
+                break;
+            }
+        }
+        if (isExist)
+            continue;
+        cout << "Movie Description: ";
+        getline(in, movieDesc);
+        cout << "Movie Genre: ";
+        getline(in, movieGenre);
+        cout << "Movie Duration(in mins): ";
+        cin >> movieDuration;
+        while (cin.fail()) {
+            cout << "Error" << endl;
+            cin.clear();
+            cin.ignore(256, '\n');
+            cin >> movieDuration;
+        }
+
+        newMovie->setTitle(movieName);
+        newMovie->setDesc(movieDesc);
+        newMovie->setGenre(movieGenre);
+        newMovie->setDuration(movieDuration);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return in;
+    }
 }

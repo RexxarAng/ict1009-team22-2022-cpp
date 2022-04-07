@@ -14,8 +14,6 @@ private:
 	string genre;
 	int duration{};
 
-    vector<Show> shows;
-
 public:
     Movie(); // for deserialization
 	Movie(string, string, string, int);
@@ -28,6 +26,7 @@ public:
 	void setGenre(string);
 	int getDuration() const;
 	void setDuration(int);
+	friend istream& operator>>(istream&, Movie*);
 
     // AbstractDataModel
     string serialize() override;
