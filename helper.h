@@ -8,22 +8,24 @@ enum class CSVState {
     QuotedQuote
 };
 
-std::vector<std::string> readCSVRow(const std::string &row, const char separator) {
+std::vector<std::string> readCSVRow(const std::string &row, char separator = ',') {
     CSVState state = CSVState::UnquotedField;
+ 
     std::vector<std::string> fields {""};
     size_t i = 0; // index of the current field
 
     for (char c : row) {
         switch (state) {
             case CSVState::UnquotedField:
-                switch (c) {
-                    case ',': // end of field
-                              fields.push_back(""); i++;
-                              break;
-                    case '"': state = CSVState::QuotedField;
-                              break;
-                    default:  fields[i].push_back(c);
-                              break; }
+                if (c == separator) {
+                    fields.push_back(""); i++;
+                }
+                else if (c == '"') {
+                    state = CSVState::QuotedField;
+                }
+                else {
+                    fields[i].push_back(c);
+                }
                 break;
             case CSVState::QuotedField:
                 switch (c) {
@@ -33,18 +35,18 @@ std::vector<std::string> readCSVRow(const std::string &row, const char separator
                               break; }
                 break;
             case CSVState::QuotedQuote:
-                switch (c) {
-                    case ',': // , after closing quote
-                              fields.push_back(""); i++;
-                              state = CSVState::UnquotedField;
-                              break;
-                    case '"': // "" -> "
-                              fields[i].push_back('"');
-                              state = CSVState::QuotedField;
-                              break;
-                    default:  // end of quote
-                              state = CSVState::UnquotedField;
-                              break; }
+                if (c == separator) {
+                    fields.push_back(""); i++;
+                    state = CSVState::UnquotedField;
+                }
+                else if (c == '"') {
+                    fields[i].push_back('"');
+                    state = CSVState::QuotedField;
+                }
+                else {
+                    state = CSVState::UnquotedField;
+                }
+                
                 break;
         }
     }

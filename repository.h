@@ -10,7 +10,7 @@
 using namespace std;
 
 //Funtion prototyping from helper.h
-vector<string> readCSVRow(const string &row);
+vector<string> readCSVRow(const string &row, char separator);
 
 template <typename T>
 class Repository {
@@ -46,28 +46,16 @@ bool Repository<T>::load() {
         getline(dataSourceFile, line);
             
         if (line.empty()) continue;
-        //auto fields = readCSVRow(line); //returns a vector of strings
-        //for(string i: fields){
-        //    columns.push_back(i);
-        //}
+        auto fields = readCSVRow(line); //returns a vector of strings
+        for(string i: fields){
+            columns.push_back(i);
+        }
             
-      stringstream s(line);
+        /*stringstream s(line);
         while (getline(s, word, ',')) {
             columns.push_back(word);
-        }
-        /* std::vector<std::vector<std::string>> readCSV(std::istream &in) {
-            std::vector<std::vector<std::string>> table;
-            std::string row;
-            while (!in.eof()) {
-                std::getline(in, row);
-                if (in.bad() || in.fail()) {
-                    break;
-                }
-                auto fields = readCSVRow(row);
-                table.push_back(fields);
-            }
-            return table;
         }*/
+
         try {
             T* dataModel = new T();
             dataModel->deserialize(line);
