@@ -8,15 +8,18 @@
 
 using namespace std;
 
+//Function Prototyping
+vector<string> readCSVRow(const string &row);
+
 class AbstractDataModel {
 protected:
     static vector<string> extractAttributesFromDataString(const string& dataString, char separator = ',') {
-        string word;
         vector<string> attributes;
-        stringstream ss(dataString);
-        while (getline(ss, word, separator)) {
-            attributes.push_back(word);
+        auto fields = readCSVRow(dataString); //returns a vector of strings
+        for(string i: fields){
+            attributes.push_back(i);
         }
+        
         return attributes;
     }
 

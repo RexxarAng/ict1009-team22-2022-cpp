@@ -31,4 +31,4 @@ public:
     string serialize() override;
     void deserialize(string) override;
 };
-#endif;
+#endif

@@ -1,5 +1,6 @@
 #ifndef ICT1009_TEAM22_2022_HALL_H
 #define ICT1009_TEAM22_2022_HALL_H
+
 #include "repository_template.h"
 #include "repository_exception.h"
 
@@ -24,4 +25,4 @@ public:
     string serialize() override;
     void deserialize(string) override;
 };
-#endif;
+#endif

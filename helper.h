@@ -7,9 +7,9 @@ enum class CSVState {
     QuotedField,
     QuotedQuote
 };
-vector<string> readCSVRow(const string &row) {
+std::vector<std::string> readCSVRow(const std::string &row) {
     CSVState state = CSVState::UnquotedField;
-    vector<string> fields {""};
+    std::vector<std::string> fields {""};
     size_t i = 0; // index of the current field
     for (char c : row) {
         switch (state) {
