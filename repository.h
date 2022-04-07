@@ -34,12 +34,16 @@ bool Repository<T>::load() {
     ifstream dataSourceFile;
     vector<string> columns;
     string word, line;
-    dataSourceFile.open(this->filename);
-    if (!dataSourceFile) {
-        cout << "No records loaded" << endl;
+    string fileErr = "File failed to load: ";
+    try{
+        dataSourceFile.open(this->filename);
+        if (dataSourceFile.fail())throw(fileErr);
+    }
+    catch(string fileErr){
+        cerr << "ERROR: " << fileErr << filename << endl;
         ScreenUtility::pause();
     }
-    else {
+    if (dataSourceFile.good()) {
         cout << "Loading records..." << endl;
         while (!dataSourceFile.eof()) {
             columns.clear();
@@ -64,7 +68,6 @@ bool Repository<T>::load() {
             if (dataSourceFile.eof())
                 break;
         }
-
         cout << "Printing out all records" << endl;
         for (T* i : this->records) {
             cout << i->serialize() << endl;
