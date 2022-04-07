@@ -63,14 +63,14 @@ void HallController::addHalls() {
     cout << "Adding Halls..." << endl;
     bool cont = true;
     while (cont) {
+        ScreenUtility::clearScreen();
         displayHallList();
-        cout << "Hall rows: ";
+        /*cout << "Hall rows: ";
         cin >> rows;
         if (cin.fail()) {
             cout << "Invalid input, only accept numbers" << endl;
             cin.clear();
             cin.ignore(256, '\n');
-            continue;
         }
         cout << "Hall columns: ";
         cin >> cols;
@@ -79,9 +79,15 @@ void HallController::addHalls() {
             cin.clear();
             cin.ignore(256, '\n');
             cin >> cols;
-        }
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        Hall* newHall = new Hall(rows, cols);
+        }*/
+        Hall *newHall = new Hall();
+        cin >> newHall;
+        //if (cin.fail()) {
+        //    cin.clear();
+        //    cin.ignore(256, '\n');
+        //    ScreenUtility::pause();
+        //    continue;
+        //}
         halls->insert(halls->end(), newHall);
         string input;
         cout << "Do you still want to add more halls(Y/N): ";

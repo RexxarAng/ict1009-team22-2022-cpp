@@ -61,7 +61,7 @@ string Movie::serialize() {
 void Movie::deserialize(string dataString) {
     vector<string> attributes = Movie::extractAttributesFromDataString(dataString);
 
-    cout << attributes.size() << endl;
+    //cout << attributes.size() << endl;
     if (attributes.size() < 4) throw ParseAttributeMismatchException();
 
     this->setTitle(attributes[0]);

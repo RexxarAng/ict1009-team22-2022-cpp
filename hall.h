@@ -18,7 +18,7 @@ public:
 	int getId() const;
 	void showSeatingPlan(bool showColumnInformation = true, bool showRowInformation = true);
 	bool bookSeat(int, int);
-
+	friend istream& operator>>(istream& in, Hall*);
     // AbstractDataModel
     string serialize() override;
     void deserialize(string) override;

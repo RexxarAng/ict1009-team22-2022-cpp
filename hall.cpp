@@ -3,10 +3,11 @@
 
 #include "hall.h"
 #include "colors.h"
+#include "screen_utility.h"
 
 using namespace std;
 
-int Hall::current_id = 0;
+int Hall::current_id = 1;
 
 Hall::Hall() = default;
 
@@ -155,13 +156,13 @@ string Hall::serialize() {
 void Hall::deserialize(string dataString) {
     vector<string> attributes = Hall::extractAttributesFromDataString(dataString);
 
-    cout << attributes.size() << endl;
+    //cout << attributes.size() << endl;
     if (attributes.size() < 4) throw ParseAttributeMismatchException();
 
     this->id = stoi(attributes[0]);
     this->noOfRows = stoi(attributes[1]);
     this->noOfCols = stoi(attributes[2]);
-    this->current_id = id + 1;
+    this->current_id = this->id + 1;
 
     // Create booking seating
 	vector<vector<bool>> newSeating(noOfRows, vector<bool>(noOfCols, false));
@@ -177,3 +178,34 @@ void Hall::deserialize(string dataString) {
     }
 }
 
+istream& operator>>(istream& in, Hall* selectedHall)
+{
+	int rows, cols;
+	cout << "Hall rows: ";
+	in >> selectedHall->noOfRows;
+	while (in.fail()) {
+		cout << "Invalid input, only accept numbers" << endl;
+		in.clear();
+		in.ignore(256, '\n');
+		ScreenUtility::pause();
+		cout << "Hall rows: ";
+		in >> selectedHall->noOfRows;
+	}
+	in.ignore(numeric_limits<streamsize>::max(), '\n');
+	cout << "Hall columns: ";
+	in >> selectedHall->noOfCols;
+	while (in.fail()) {
+		cout << "Invalid input, only accept numbers" << endl;
+		in.clear();
+		in.ignore(256, '\n');
+		ScreenUtility::pause();
+		cout << "Hall columns: ";
+		in >> selectedHall->noOfCols;
+	}
+	in.ignore(numeric_limits<streamsize>::max(), '\n');
+	vector<vector<bool>> newSeating(selectedHall->noOfRows, vector<bool>(selectedHall->noOfCols, false));
+	selectedHall->seating = newSeating;
+	selectedHall->current_id++;
+	selectedHall->id = selectedHall->current_id;
+	return in;
+}

@@ -46,11 +46,10 @@ void openMenu(MenuItem* p_menu, unsigned int item_quantity)
 
 MenuItem main_menu[] =
 {
-    {1, "View Movies", MovieController::viewMovies},
+    {1, "View Movies", ShowController::viewShows},
     {2, "Book Movies", BookingController::bookMovies},
-    {3, "View Halls", HallController::viewHalls},
-    {4, "Admin", displayAdminMenu},
-    {5, "Quit", ScreenUtility::quit}
+    {3, "Admin", displayAdminMenu},
+    {4, "Quit", ScreenUtility::quit}
 };
 
 static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
