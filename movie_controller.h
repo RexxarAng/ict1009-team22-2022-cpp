@@ -11,8 +11,6 @@ public:
 	static void viewMovies();
     static void displayMovieList();
     static Movie* promptMovieSelection();
-    static void viewShowTimesByMovie(Movie*);
-    static void viewBookingByShowTime(Show*);
     static void addMovies();
     static void removeMovies();
 };

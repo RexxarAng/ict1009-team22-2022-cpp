@@ -26,7 +26,7 @@ void ShowController::viewShows() {
             if (selectedShow == nullptr) {
                 break;
             }
-            cout << "You have selected " << selectedShow->getTitle()  << " " << selectedShow->getTime() << endl;
+            cout << "You have selected " << selectedShow->getMovie()->getTitle() << " " << selectedShow->getTime() << endl;
             selectedShow->showHallSeatingPlan();
             ScreenUtility::pause();
             
@@ -70,10 +70,10 @@ void ShowController::addShows() {
         if (selectedHall == nullptr) break;
         Show* newShow = new Show();
         newShow->setHall(*selectedHall);
-        newShow->setTitle(selectedMovie->getTitle());
+        newShow->setMovie(*selectedMovie);
         cin >> newShow;
 
-        shows->insert(shows->begin(), newShow);
+        shows->insert(shows->end(), newShow);
         string input;
         cout << "Do you still want to add more shows(Y/N): ";
         cin >> input;
@@ -90,7 +90,7 @@ void ShowController::displayShowList() {
     cout << "Show times of movies: " << endl;
     cout << "==============================" << endl;
     for (Show* i : *shows) {
-        cout << movieIndex << ") " << i->getTitle() << " " << i->getTime() << endl;
+        cout << movieIndex << ") " << i->getMovie()->getTitle() << " " << i->getTime() << endl;
         movieIndex++;
     }
     cout << endl;

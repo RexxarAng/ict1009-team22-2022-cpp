@@ -36,8 +36,15 @@ void MovieController::viewMovies() {
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
             if (selection > 0 && selection <= movies->size()) {
-                cout << "You have selected " << movies->at(selection - 1)->getTitle() << endl;
-                viewShowTimesByMovie(movies->at(selection - 1));
+                ScreenUtility::clearScreen();
+                Movie* selectedMovie = movies->at(selection - 1);
+                cout << "You have selected " << selectedMovie->getTitle() << endl;
+                cout << endl;
+                cout << "Movie Name: " << selectedMovie->getTitle() << endl;
+                cout << "Movie Description: " << selectedMovie->getDesc() << endl;
+                cout << "Movie Genre: " << selectedMovie->getGenre() << endl;
+                cout << "Movie Duration: " << selectedMovie->getDuration() << endl;
+                ScreenUtility::pause();
             }
             else if (selection == -1) {
                 break;
@@ -82,81 +89,6 @@ Movie* MovieController::promptMovieSelection() {
     return nullptr;
     
 }
-
-void MovieController::viewShowTimesByMovie(Movie* movie) {
-    unsigned int selection;
-
-    while (true) {
-        ScreenUtility::clearScreen();
-        cout << movie->getTitle() << endl;
-        cout << "==============================" << endl;
-        cout << "Today " << endl;
-        cout << "1) Timeslot 1" << endl;
-        cout << "2) Timeslot 2" << endl;
-        cout << "3) Timeslot 3" << endl;
-        cout << "Please selected the option:";
-
-        cin >> selection;
-        if (!cin.fail()) break;
-        cin.clear(); // get rid of failure state
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        printColor("ERROR -- You did not enter an integer\n", 2);
-        ScreenUtility::pause();
-    }
-    cout << "You have selected " << selection << endl;
-
-    // TODO: Mock showtime
-    Hall a(12, 12);
-    string movieName = movie->getTitle();
-    time_t now = time(0);
-    tm localtm = *localtime(&now);
-    Show s(movieName, "0800 hrs", a);
-    viewBookingByShowTime(&s);
-}
-
-void MovieController::viewBookingByShowTime(Show* showtime) {
-    string selection;
-
-    while (true) {
-        showtime->showHallSeatingPlan();
-
-        cout << "==============================" << endl;
-        cout << "Book any seat numbers" << endl;
-        cout << "q) Back" << endl;
-        cout << "Please select the option:";
-
-        cin >> selection;
-        if (cin.fail()) {
-            cin.clear(); // get rid of failure state
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            printColor("ERROR -- Invalid option\n", 2);
-            ScreenUtility::pause();
-        }
-        else if (selection == "q") {
-            ScreenUtility::clearScreen();
-            break;
-        }
-        else {
-            if (selection.size() < 2) {
-                printColor("ERROR -- Invalid seat number, please try again\n", 2);
-                ScreenUtility::pause();
-            }
-            int column = (int)(unsigned char)selection[0] - (int)('A');
-            int row = stoi(selection.substr(1, selection.size() - 1));
-
-            cout << "Booking " << column << ":" << row << endl;
-            if (showtime->getHall()->bookSeat(column, row)) {
-                printColor("You have booked " + selection + "\n");
-                ScreenUtility::pause();
-            }
-            else {
-                printColor("Invalid option : " + selection + ", Please try again.\n", 2);
-                ScreenUtility::pause();
-            }
-        }
-    }
-}
-
 
 void MovieController::addMovies() {
     extern vector<Movie*>* movies;
@@ -222,7 +154,7 @@ void MovieController::removeMovies() {
             }
             cout << selectedMovie->getTitle() << " successfully deleted" << endl;
             for (auto& showPtr : *shows) {
-                if (showPtr->getTitle() == selectedMovie->getTitle()) {
+                if (showPtr->getMovie()->getTitle() == selectedMovie->getTitle()) {
                     delete showPtr;
                     showPtr = nullptr;
                 }

@@ -1,7 +1,7 @@
-#pragma once
+#ifndef ICT1009_TEAM22_2022_MOVIE_H
+#define ICT1009_TEAM22_2022_MOVIE_H
 #include <string>
 #include <vector>
-#include "show.h"
 #include "repository_template.h"
 #include "repository_exception.h"
 
@@ -32,3 +32,4 @@ public:
     string serialize() override;
     void deserialize(string) override;
 };
+#endif;

@@ -14,7 +14,7 @@ void BookingController::bookMovies() {
 			Show* selectedShow = ShowController::promptShowSelection();
 			if (selectedShow == nullptr)
 				break;
-			cout << "You have selected " << selectedShow->getTitle() << " " << selectedShow->getTime() << endl;
+			cout << "You have selected " << selectedShow->getMovie()->getTitle() << " " << selectedShow->getTime() << endl;
             promptSeatSelection(selectedShow);
 		}
 	}
