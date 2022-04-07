@@ -51,12 +51,11 @@ void Movie::deserialize(string dataString) {
     //cout << attributes.size() << endl;
     if (attributes.size() < 4) throw ParseAttributeMismatchException();
     
-    
-    this->setTitle(attributes[0]);
-    this->setDesc(attributes[1]);
-    this->setGenre(attributes[2]);
+    this->setMovieID(attributes[0]);
+    this->setTitle(attributes[1]);
+    this->setDesc(attributes[2]);
     this->setDuration(stoi(attributes[3]));
-    
+    this->setGenre(attributes[5]);
 }
 
 istream& operator>>(istream& in, Movie* newMovie)
