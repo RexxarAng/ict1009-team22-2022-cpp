@@ -67,6 +67,10 @@ istream& operator>>(istream& in, Movie* newMovie)
         bool isExist = false;
         cout << "Movie Name: ";
         getline(in, movieName);
+        if(movieName.find('"')){
+            cerr << "No double quotes allowed" << endl;
+            continue;
+        }
         for (Movie* i : *movies) {
             if (movieName == i->getTitle()) {
                 cout << "Movie already exists";
