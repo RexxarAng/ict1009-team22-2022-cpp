@@ -1,2 +1,11 @@
-Baybee,yes baybee,action,120
-testing,123,sdfs,120
+movieID, Title, desc, runTime, maturity(0 to 5), genre, rating, mainCast, language
+tt0000001, Venom: Let There Be Carnage, "A failed reporter is bonded to an alien entity, one of many symbiotes who have invaded Earth. But the being takes a liking to Earth and decides to protect it.", 120, 2, "Horror, Action, Thriller",6.7,"Tom Hardy, Michelle Williams", English
+tt0000002, Titanic, "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.", 194, 2, "Drama, Romance", 7.9,"Leonardo DiCaprio, Kate Winslet", English
+tt0000003, High School Musical,"A popular high-school athlete and an academically-gifted girl get roles in the school musical and develop a friendship that threatens East High's social order.", 98, 0, "Comedy, Drama, Family", 5.5, "Zac Efron, Vanessa Hudgens", English
+tt0000004, The Transporter, "Frank Martin, who 'transports' packages for unknown clients, is asked to move a package that soon begins moving, and complications arise.", 92, 2, "Action, Drama,  Thriller", 6.8, "Jason Statham, Shu Qi", English
+tt0000005, The Shawshank Redemption, "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.", 144, 5, "Drama", 9.3, "Tim Robbins, Morgan Freeman", English
+tt0000006, 3 Idiots, "Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them 'idiots'.", 170, 2,"Drama, Comedy",8.5,"Aamir Khan, Madhavan, Sharman Joshi", Hindi
+tt0000007, Dunkirk,"Allied soldiers from Belgium, the British Commonwealth and Empire, and France are surrounded by the German Army and evacuated during a fierce battle in World War II.", 106, 2, "Action, Drama, History", 7.8, "Fionn Whitehead, Damien Bonnard, Aneurin Barnard ", English
+tt0000008, American Pie,"Four teenage boys enter a pact to lose their virginity by prom night.", 155, 3, "Comedy", 7.1, "Jason Biggs, Seann William Scott", English
+tt0000009, Spider-Man: Into the Spider-Verse,"Teen Miles Morales becomes the Spider-Man of his universe, and must join with five spider-powered individuals from other dimensions to stop a threat for all realities.", 117, 1, "Animation, Action, Adventure", 8.4, "Shameik Moore, Jake Johnson", English
+tt0000010, Interstellar,"A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.", 139, 2, "Adventure, Drama, Sci-Fi", 8.7, "Matthew McConaughey, Anne Hathaway", English1

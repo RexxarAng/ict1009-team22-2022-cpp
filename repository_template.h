@@ -15,9 +15,18 @@ class AbstractDataModel {
 protected:
     static vector<string> extractAttributesFromDataString(const string& dataString, char separator = ',') {
         vector<string> attributes;
-        auto fields = readCSVRow(dataString); //returns a vector of strings
-        for(string i: fields){
-            attributes.push_back(i);
+        string word;
+        stringstream ss(dataString);
+        if (separator == ','){
+            auto fields = readCSVRow(dataString); //returns a vector of strings
+            for(string i: fields){
+                attributes.push_back(i);
+            }
+        }
+        else{
+            while(getline(ss,word,separator)){
+                attributes.push_back(word);
+            }
         }
         
         return attributes;
