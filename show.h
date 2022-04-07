@@ -18,12 +18,10 @@ private:
 public:
     Show(); // for deserialization
 	Show(Movie movie, string time, Hall hall);
-	string getTitle();
     string getTime();
 	int getHallId();
 	void setMovie(Movie);
 	void setHall(Hall);
-	void setTitle(string);
 	void showHallSeatingPlan();
     Hall* getHall();
 	Movie* getMovie();

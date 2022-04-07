@@ -17,7 +17,6 @@ private:
 public:
     Movie(); // for deserialization
 	Movie(string, string, string, int);
-	~Movie();
 	string getTitle();
 	void setTitle(string);
 	string getDesc();

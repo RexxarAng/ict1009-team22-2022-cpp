@@ -15,10 +15,6 @@ Movie::Movie(string newTitle, string newDesc, string newGenre, int newDuration) 
 	this->duration = newDuration;
 }
 
-Movie::~Movie() {
-    cout << this->title << " is deleted." << endl;
-}
-
 string Movie::getTitle() {
 	return this->title;
 }
