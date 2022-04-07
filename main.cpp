@@ -14,7 +14,8 @@ int main()
         showRepository.load();
     }
     catch (ParseException& e) {
-        cout << "Error:\n" << e.what() << endl;
+        printColor("Error: ", 2);
+        cout << e.what() << endl;
         ScreenUtility::pause();
     }
     catch (exception& e) {

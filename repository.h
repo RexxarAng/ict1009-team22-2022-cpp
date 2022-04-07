@@ -62,6 +62,7 @@ bool Repository<T>::load() {
             this->records.insert(this->records.end(), dataModel);
         }
         catch (ParseException& e) {
+            printColor("Warning: ", 2);
             cout << e.what() << endl;
             ScreenUtility::pause();
         }
