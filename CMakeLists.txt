@@ -10,10 +10,8 @@ add_executable(ict1009_team22_2022_cpp
         main.h
         repository.h
         movie_repo.h
-        actions.cpp
         colors.h
         colors.cpp
-        file.h
         hall.cpp
         hall.h
         menu.cpp
@@ -30,5 +28,9 @@ add_executable(ict1009_team22_2022_cpp
         movie_controller.h
         hall_controller.cpp
         hall_controller.h
+        show_controller.cpp
+        show_controller.h
+        booking_controller.cpp
+        booking_controller.h
         screen_utility.cpp
         screen_utility.h)
