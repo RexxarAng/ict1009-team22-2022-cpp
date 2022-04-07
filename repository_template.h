@@ -17,14 +17,15 @@ protected:
         string word;
         vector<string> attributes;
         stringstream ss(dataString);
-        if (separator == ',') {
+
+        if (separator == ','){
             auto fields = readCSVRow(dataString, separator); //returns a vector of strings
-            for (string i : fields) {
+            for(string i: fields){
                 attributes.push_back(i);
             }
         }
-        else {
-            while (getline(ss, word, separator)) {
+        else{
+            while(getline(ss,word,separator)){
                 attributes.push_back(word);
             }
         }

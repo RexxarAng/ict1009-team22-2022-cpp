@@ -46,15 +46,15 @@ bool Repository<T>::load() {
         getline(dataSourceFile, line);
             
         if (line.empty()) continue;
-        auto fields = readCSVRow(line); //returns a vector of strings
-        for(string i: fields){
-            columns.push_back(i);
-        }
+        //auto fields = readCSVRow(line); //returns a vector of strings
+        //for(string i: fields){
+        //    columns.push_back(i);
+        //}
             
-     /* stringstream s(line);
+      stringstream s(line);
         while (getline(s, word, ',')) {
             columns.push_back(word);
-        }*/
+        }
         /* std::vector<std::vector<std::string>> readCSV(std::istream &in) {
             std::vector<std::vector<std::string>> table;
             std::string row;

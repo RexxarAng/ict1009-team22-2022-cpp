@@ -15,37 +15,25 @@ Movie::Movie(string newTitle, string newDesc, string newGenre, int newDuration) 
 	this->duration = newDuration;
 }
 
-string Movie::getTitle() {
-	return this->title;
-}
-
-void Movie::setTitle(string newTitle) {
-	this->title = std::move(newTitle);
-}
-
-string Movie::getDesc() {
-	return this->desc;
-}
-
-void Movie::setDesc(string newDesc) {
-	this->desc = std::move(newDesc);
-}
-
-string Movie::getGenre() {
-	return this->genre;
-}
-
-void Movie::setGenre(string newGenre) {
-	this->genre = std::move(newGenre);
-}
-
-int Movie::getDuration() const {
-	return this->duration;
-}
-
-void Movie::setDuration(int newDuration) {
-	this->duration = newDuration;
-}
+//setters and getters
+string Movie::getMovieID(){return this->movieID;}
+void Movie::setMovieID(string movieID){this->movieID = movieID;}
+string Movie::getTitle() {return this->title;}
+void Movie::setTitle(string newTitle) {this->title = std::move(newTitle);}
+string Movie::getDesc() {return this->desc;}
+void Movie::setDesc(string newDesc) {this->desc = std::move(newDesc);}
+string Movie::getGenre() {return this->genre;}
+void Movie::setGenre(string newGenre) {this->genre = std::move(newGenre);}
+int Movie::getDuration() const {return this->duration;}
+void Movie::setDuration(int newDuration) {this->duration = newDuration;}
+int Movie::getMaturity(){return this->maturity;}
+void Movie::setMaturity(int maturity){this->maturity = maturity;}
+float Movie::getRating(){return this->rating;}
+void Movie::setRating(float rating){this->rating = rating;}
+string Movie::getMainCast(){return this->mainCast;}
+void Movie::setMainCast(string mainCast){this-> mainCast = mainCast;}
+string Movie::getLanguage(){return this->language;}
+void Movie::setLanguage(string language){this->language = language;}
 
 string Movie::serialize() {
     string serializedString = this->getTitle();
@@ -65,6 +53,7 @@ void Movie::deserialize(string dataString) {
     this->setDesc(attributes[1]);
     this->setGenre(attributes[2]);
     this->setDuration(stoi(attributes[3]));
+    this->setGenre(attributes[5]);
 }
 
 istream& operator>>(istream& in, Movie* newMovie)
