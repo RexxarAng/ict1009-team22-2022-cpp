@@ -8,9 +8,19 @@ extern Repository<Show> showRepository;
 
 int main()
 {
-    movieRepository.load();
-    hallRepository.load();
-    showRepository.load();
+    try {
+        movieRepository.load();
+        hallRepository.load();
+        showRepository.load();
+    }
+    catch (ParseException& e) {
+        cout << "Error:\n" << e.what() << endl;
+        ScreenUtility::pause();
+    }
+    catch (exception& e) {
+        cout << "No records loaded" << endl;
+        ScreenUtility::pause();
+    }
 
     displayMainMenu();
 

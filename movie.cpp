@@ -56,13 +56,10 @@ string Movie::serialize() {
 }
 
 void Movie::deserialize(string dataString) {
-    cout << "String: " << dataString << endl;
+    const int expectedSize = 4;
     vector<string> attributes = Movie::extractAttributesFromDataString(dataString);
-    for(string i: attributes){
-        cout << "Item:" << i << endl;
-    }
-    //cout << attributes.size() << endl;
-    if (attributes.size() < 4) throw ParseAttributeMismatchException();
+
+    if (attributes.size() < expectedSize) throw ParseAttributeMismatchException(typeid(this).name(), expectedSize, attributes.size());
 
     this->setTitle(attributes[0]);
     this->setDesc(attributes[1]);

@@ -7,10 +7,16 @@ enum class CSVState {
     QuotedField,
     QuotedQuote
 };
-std::vector<std::string> readCSVRow(const std::string &row) {
+
+enum class Separator {
+    COMMA_SEPARATED = ',',
+    SEMICOLON_SEPARATED = ';'
+};
+std::vector<std::string> readCSVRow(const std::string &row, const char separator) {
     CSVState state = CSVState::UnquotedField;
     std::vector<std::string> fields {""};
     size_t i = 0; // index of the current field
+
     for (char c : row) {
         switch (state) {
             case CSVState::UnquotedField:

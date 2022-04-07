@@ -6,16 +6,28 @@
 
 using namespace std;
 
-struct ParseNullException : public exception {
-    const char * what() const noexcept override {
-        return "Unable to parse the datasource's record due to null pointer";
-    }
+struct ParseException : public exception {
+    
+    ParseException(const string& source, const string& errorMessage) :
+        exception((errorMessage + " from '" + source + "'").c_str()) {}
+
 };
 
-struct ParseAttributeMismatchException : public exception {
-    const char * what() const noexcept override {
-        return "Unable to parse the datasource's record due to mismatch attributes";
-    }
+struct ParseFileNotFoundException : public ParseException {
+
+    ParseFileNotFoundException(const string& source, const string& fileName) : 
+        ParseException(source, "Error parsing datasource due to file '" + fileName + "' not found") {}
+
+};
+
+struct ParseAttributeMismatchException : public ParseException {
+
+    ParseAttributeMismatchException(const string& source, const int expected, const int actual) :
+        ParseException(
+            source, 
+            "Error parsing datasource's record due number of attributes is mismatched, expected " + 
+            to_string(expected) + " but has " + to_string(actual)) {}
+
 };
 
 #endif //ICT1009_TEAM22_2022_CPP_REPOSITORY_EXCEPTION_H
