@@ -8,13 +8,12 @@
 #include "screen_utility.h"
 
 using namespace std;
-
+vector<string> readCSVRow(const string &row);
 template <typename T>
 class Repository {
 private:
     string filename;
     vector<T*> records;
-
 public:
     explicit Repository(const string& filename);
     bool load();
@@ -26,7 +25,6 @@ template <typename T>
 Repository<T>::Repository(const string& filename) {
     this->filename = filename;
 }
-
 template <typename T>
 bool Repository<T>::load() {
     this->records.clear();
@@ -48,14 +46,30 @@ bool Repository<T>::load() {
         while (!dataSourceFile.eof()) {
             columns.clear();
             getline(dataSourceFile, line);
-
+            
             if (line.empty()) continue;
-
-            stringstream s(line);
-            while (getline(s, word, ',')) {
-                columns.push_back(word);
+            auto fields = readCSVRow(line); //returns a vector of strings
+            for(string i: fields){
+                columns.push_back(i);
             }
-
+            
+//            stringstream s(line);
+//            while (getline(s, word, ',')) {
+//                columns.push_back(word);
+//            }
+            /* std::vector<std::vector<std::string>> readCSV(std::istream &in) {
+             std::vector<std::vector<std::string>> table;
+             std::string row;
+             while (!in.eof()) {
+                 std::getline(in, row);
+                 if (in.bad() || in.fail()) {
+                     break;
+                 }
+                 auto fields = readCSVRow(row);
+                 table.push_back(fields);
+             }
+             return table;
+         }*/
             try {
                 T* dataModel = new T();
                 dataModel->deserialize(line);
@@ -102,5 +116,6 @@ template <typename T>
 vector<T*>* Repository<T>::getRecords() {
     return &records;
 }
+
 
 #endif //ICT1009_TEAM22_2022_CPP_REPOSITORY_H

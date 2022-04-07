@@ -14,5 +14,6 @@
 #include "show.h"
 #include "colors.h"
 #include "movie_repo.h"
+#include "helper.h"
 #include "repository.h"
 #include "screen_utility.h"
