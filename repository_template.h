@@ -5,11 +5,10 @@
 #include <sstream>
 #include <vector>
 #include "repository_exception.h"
+#include "helper.h"
 
 using namespace std;
 
-//Function Prototyping
-vector<string> readCSVRow(const string &row, char separator);
 
 class AbstractDataModel {
 protected:
@@ -20,7 +19,7 @@ protected:
         while (getline(ss, word, separator)) {
             attributes.push_back(word);
         }*/
-        auto fields = readCSVRow(dataString, separator); //returns a vector of strings
+        auto fields = CSVReader::readCSVRow(dataString, separator); //returns a vector of strings
         for (string i : fields) {
             attributes.push_back(i);
         }

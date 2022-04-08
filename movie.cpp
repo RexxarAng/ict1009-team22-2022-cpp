@@ -36,9 +36,9 @@ string Movie::getLanguage(){return this->language;}
 void Movie::setLanguage(string language){this->language = language;}
 
 string Movie::serialize() {
-    string serializedString = this->getTitle();
-    serializedString += "," + this->getDesc();
-    serializedString += "," + this->getGenre();
+    string serializedString = "\"" + this->getTitle() + "\"";
+    serializedString += ",\"" + this->getDesc() + "\"";
+    serializedString += ",\"" + this->getGenre() + "\"";
     serializedString += "," + to_string(this->getDuration());
     return serializedString;
 }
@@ -62,8 +62,8 @@ istream& operator>>(istream& in, Movie* newMovie)
     int movieDuration;
     while (true) {
         bool isExist = false;
-        cout << "Movie Name: ";
-        getline(in, movieName);
+        movieName = ScreenUtility::promptAndSanitizeInput("Movie Name: ");
+
         for (Movie* i : *movies) {
             if (movieName == i->getTitle()) {
                 cout << "Movie already exists";
@@ -74,10 +74,8 @@ istream& operator>>(istream& in, Movie* newMovie)
         }
         if (isExist)
             continue;
-        cout << "Movie Description: ";
-        getline(in, movieDesc);
-        cout << "Movie Genre: ";
-        getline(in, movieGenre);
+        movieDesc = ScreenUtility::promptAndSanitizeInput("Movie Description: ");
+        movieGenre = ScreenUtility::promptAndSanitizeInput("Movie Genre: ");
         cout << "Movie Duration(in mins): ";
         cin >> movieDuration;
         while (cin.fail()) {

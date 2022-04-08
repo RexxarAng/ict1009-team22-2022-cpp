@@ -6,11 +6,9 @@
 #include <sstream>
 #include <vector>
 #include "screen_utility.h"
+#include "helper.h"
 
 using namespace std;
-
-//Funtion prototyping from helper.h
-vector<string> readCSVRow(const string &row, char separator);
 
 template <typename T>
 class Repository {
@@ -46,7 +44,7 @@ bool Repository<T>::load() {
         getline(dataSourceFile, line);
             
         if (line.empty()) continue;
-        auto fields = readCSVRow(line); //returns a vector of strings
+        auto fields = CSVReader::readCSVRow(line); //returns a vector of strings
         for(string i: fields){
             columns.push_back(i);
         }
