@@ -53,7 +53,7 @@ void MovieController::viewMovies() {
             if (selection > 0 && selection <= movies->size()) {
                 ScreenUtility::clearScreen();
                 Movie* selectedMovie = movies->at(selection - 1);
-                cout << selectedMovie;
+                cout << selectedMovie; 
                 ScreenUtility::pause();
             }
             else if (selection == -1) {

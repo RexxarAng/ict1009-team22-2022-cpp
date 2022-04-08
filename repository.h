@@ -67,10 +67,10 @@ bool Repository<T>::load() {
         if (dataSourceFile.eof())
             break;
     }
-    cout << "Printing out all records" << endl;
+  /*  cout << "Printing out all records" << endl;
     for (T* i : this->records) {
         cout << i->serialize() << endl;
-    }
+    }*/
     dataSourceFile.close();
     
     return true;
