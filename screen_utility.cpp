@@ -1,5 +1,6 @@
 #include "screen_utility.h"
 #include <string>
+#include <algorithm>
 
 void ScreenUtility::clearScreen() {
 #ifdef _WIN32
@@ -23,6 +24,7 @@ void ScreenUtility::pause() {
 string ScreenUtility::promptAndSanitizeInput(string message) {
     cout << message;
     string input;
+    char delimiters[] = {'\\', '\'', '"', ';'};
     while (getline(cin, input))
     {
         if (input.empty()) {
@@ -30,8 +32,9 @@ string ScreenUtility::promptAndSanitizeInput(string message) {
             cout << message;
         }
         else {
-            input.erase(remove(input.begin(), input.end(), '"'));
-            input.erase(remove(input.begin(), input.end(), ';'));
+            for (char d : delimiters) {
+                input.erase(remove(input.begin(), input.end(), d), input.end());
+            }
             return input;
         }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
