@@ -120,5 +120,4 @@ vector<T*>* Repository<T>::getRecords() {
     return &records;
 }
 
-
 #endif //ICT1009_TEAM22_2022_CPP_REPOSITORY_H

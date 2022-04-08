@@ -13,16 +13,33 @@ extern Repository<Show> showRepository;
 
 void MovieController::viewMovies() {
     extern vector<Movie*>* movies;
+    string maturity[] = {"G", "PG", "PG13", "NC16", "M18", "R21"};
     ScreenUtility::clearScreen();
     if (!movies->empty()) {
 
         while (true) {
             ScreenUtility::clearScreen();
             int movieIndex = 1;
-            cout << "Movies now showing: " << endl;
-            cout << "==============================" << endl;
+            cout << "=================================" << endl;
+            cout << "CHAW THEATERS MOVIES NOW SHOWING: " << endl;
+            cout << "=================================" << endl<<endl;
             for (Movie* i : *movies) {
-                cout << movieIndex << ") " << i->getTitle() << endl;
+                int matureRate = i->getMaturity();
+                if ((i->getMaturity() > 6) || (i->getMaturity() < 0)){
+                    cerr << "ERROR: Mature Ratings is out of range." << endl;
+                    matureRate = 0;
+                }
+                char* title = &(i->getTitle())[0];
+                char* matureRating = &maturity[matureRate][0];
+                char buffer[10000];
+                
+                sprintf(buffer, "%d) %s\n\t%-4s || %-3d mins",
+                        movieIndex,
+                        title,
+                        matureRating,
+                        i->getDuration());
+                cout << buffer;
+                cout << endl << endl;
                 movieIndex++;
             }
             cout << "To quit select: -1" << endl;
@@ -116,7 +133,8 @@ void MovieController::displayMovieList() {
     extern vector<Movie*>* movies;
     if (!movies->empty()) {
         int movieIndex = 1;
-        cout << "Movies now showing: " << endl;
+        cout << "==============================" << endl;
+        cout << "NOW SHOWING: " << endl;
         cout << "==============================" << endl;
         for (Movie* i : *movies) {
             cout << movieIndex << ") " << i->getTitle() << endl;
