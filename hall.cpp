@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int Hall::current_id = 1;
+int Hall::current_id = 0;
 
 Hall::Hall() = default;
 

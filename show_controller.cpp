@@ -90,6 +90,9 @@ void ShowController::displayShowList() {
     cout << "=================================" << endl;
     cout << "CHAW THEATERS MOVIE SHOWTIMES: " << endl;
     cout << "=================================" << endl << endl;
+    sort(shows->begin(), shows->end(), [](const Show* s1, const Show* s2) {
+        return (*s1) < (*s2);
+    });
     for (Show* i : *shows) {
         cout << movieIndex << ") " << i->getMovie()->getTitle() << " " << i->getTime() << endl;
         movieIndex++;

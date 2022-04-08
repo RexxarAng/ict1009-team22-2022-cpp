@@ -84,3 +84,7 @@ istream& operator>>(istream& in, Show* newShow)
     newShow->time = time;
 	return in;
 }
+
+bool operator<(Show const& s1, Show const& s2) {
+    return stoi(s1.time) < stoi(s2.time);
+}
