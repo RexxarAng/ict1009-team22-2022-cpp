@@ -31,11 +31,13 @@ void MovieController::viewMovies() {
                 }
                 char buffer[10000];
                 
-                sprintf(buffer, "%d) %s\n\t%-4s || %-3d mins",
+                sprintf(buffer, "%d) %s\n\t%-4s || %-3dmins || %.1f/10 IMDb || %s",
                         movieIndex,
                         i->getTitle().c_str(),
                         maturity[i->getMaturity()].c_str(),
-                        i->getDuration());
+                        i->getDuration(),
+                        i->getRating(),
+                        i->getGenre().c_str());
                 cout << buffer;
                 cout << endl << endl;
                 movieIndex++;
