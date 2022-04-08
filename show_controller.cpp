@@ -87,8 +87,9 @@ void ShowController::addShows() {
 void ShowController::displayShowList() {
     extern vector<Show*>* shows;
     int movieIndex = 1;
-    cout << "Show times of movies: " << endl;
-    cout << "==============================" << endl;
+    cout << "=================================" << endl;
+    cout << "CHAW THEATERS MOVIE SHOWTIMES: " << endl;
+    cout << "=================================" << endl << endl;
     for (Show* i : *shows) {
         cout << movieIndex << ") " << i->getMovie()->getTitle() << " " << i->getTime() << endl;
         movieIndex++;

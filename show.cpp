@@ -51,19 +51,20 @@ void Show::showHallSeatingPlan() {
 
 string Show::serialize() {
     string serializedString = this->getMovie()->serialize();
-    serializedString += ";" + this->getTime();
-    serializedString += ";" + this->getHall()->serialize();
+    serializedString += "~" + this->getTime();
+    serializedString += "~" + this->getHall()->serialize();
     return serializedString;
 }
 
 void Show::deserialize(string dataString) {
-    const int expectedSize = 3;
-    vector<string> attributes = Show::extractAttributesFromDataString(dataString, ';');
+    const int expectedEntities = 3;
 
-    if (attributes.size() < expectedSize) throw ParseAttributeMismatchException(typeid(this).name(), expectedSize, attributes.size());
-        this->movie.deserialize(attributes[0]);
-    this->time = std::move(attributes[1]);
-    this->hall.deserialize(attributes[2]);
+    vector<string> entities = Show::extractEntitiesFromDataString(dataString);
+    if (entities.size() < expectedEntities) throw ParseAttributeMismatchException(typeid(this).name(), expectedEntities, entities.size());
+   
+    this->movie.deserialize(entities[0]);
+    this->time = std::move(entities[1]);
+    this->hall.deserialize(entities[2]);
 }
 
 

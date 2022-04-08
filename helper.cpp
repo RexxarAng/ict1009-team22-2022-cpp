@@ -1,11 +1,11 @@
 #include "helper.h"
+#include <iostream>
 
 vector<string> CSVReader::readCSVRow(const string& row, char separator) {
     CSVState state = CSVState::UnquotedField;
 
     vector<string> fields{ "" };
     size_t i = 0; // index of the current field
-
     for (char c : row) {
         switch (state) {
         case CSVState::UnquotedField:

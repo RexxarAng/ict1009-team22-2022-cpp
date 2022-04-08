@@ -11,7 +11,7 @@ public:
 
 	static void pause();
 
-	static string promptAndSanitizeInput(string);
+	static string promptAndSanitizeStringInput(string);
 };
 
 

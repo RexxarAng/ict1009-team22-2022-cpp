@@ -12,6 +12,16 @@ using namespace std;
 
 class AbstractDataModel {
 protected:
+    static vector<string> extractEntitiesFromDataString(const string& dataString, char separator = '~') {
+        string word;
+        vector<string> entities;
+        stringstream ss(dataString);
+        while (getline(ss, word, separator)) {
+            entities.push_back(word);
+        }
+        return entities;
+    }
+
     static vector<string> extractAttributesFromDataString(const string& dataString, char separator = ',') {
         string word;
         vector<string> attributes;

@@ -29,14 +29,12 @@ void MovieController::viewMovies() {
                     cerr << "ERROR: Mature Ratings is out of range." << endl;
                     matureRate = 0;
                 }
-                char* title = &(i->getTitle())[0];
-                char* matureRating = &maturity[matureRate][0];
                 char buffer[10000];
                 
                 sprintf(buffer, "%d) %s\n\t%-4s || %-3d mins",
                         movieIndex,
-                        title,
-                        matureRating,
+                        i->getTitle().c_str(),
+                        maturity[i->getMaturity()].c_str(),
                         i->getDuration());
                 cout << buffer;
                 cout << endl << endl;
@@ -55,12 +53,7 @@ void MovieController::viewMovies() {
             if (selection > 0 && selection <= movies->size()) {
                 ScreenUtility::clearScreen();
                 Movie* selectedMovie = movies->at(selection - 1);
-                cout << "You have selected " << selectedMovie->getTitle() << endl;
-                cout << endl;
-                cout << "Movie Name: " << selectedMovie->getTitle() << endl;
-                cout << "Movie Description: " << selectedMovie->getDesc() << endl;
-                cout << "Movie Genre: " << selectedMovie->getGenre() << endl;
-                cout << "Movie Duration: " << selectedMovie->getDuration() << endl;
+                cout << selectedMovie;
                 ScreenUtility::pause();
             }
             else if (selection == -1) {

@@ -41,7 +41,7 @@ public:
     string getLanguage();
     void setLanguage(string);
 	friend istream& operator>>(istream&, Movie*);
-
+    friend ostream& operator<<(ostream&, Movie*);
     // AbstractDataModel
     string serialize() override;
     void deserialize(string) override;

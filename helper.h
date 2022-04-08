@@ -4,6 +4,7 @@
 #include <vector>
 
 using namespace std;
+
 //helper function to parse CSV file with commas and quotes
 enum class CSVState {
     UnquotedField,

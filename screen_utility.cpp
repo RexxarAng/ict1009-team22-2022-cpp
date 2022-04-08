@@ -21,11 +21,11 @@ void ScreenUtility::pause() {
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-string ScreenUtility::promptAndSanitizeInput(string message) {
+string ScreenUtility::promptAndSanitizeStringInput(string message) {
     cout << message;
     string input;
-    char delimiters[] = {'\\', '\'', '"', ';'};
-    while (getline(cin, input))
+    char delimiters[] = {'\\', '\'', '"', ';', '~', '|'};
+    while (getline(cin >> ws, input))
     {
         if (input.empty()) {
             cout << "Empty input" << endl;

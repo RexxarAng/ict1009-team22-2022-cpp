@@ -140,13 +140,13 @@ string Hall::serialize() {
     serializedString += "," + to_string(this->noOfRows);
     serializedString += "," + to_string(this->noOfCols);
 
-    serializedString += ",";
+    serializedString += "|";
     int i = 0;
     for (int r = 0; r < this->noOfRows; r++) {
         for (int c = 0; c < this->noOfCols; c++) {
             if (this->seating[r][c]) serializedString += "1";
             else serializedString += "0";
-            serializedString += '|';
+            serializedString += ',';
         }
     }
 
@@ -154,9 +154,12 @@ string Hall::serialize() {
 }
 
 void Hall::deserialize(string dataString) {
-	const int expectedSize = 4;
-    vector<string> attributes = Hall::extractAttributesFromDataString(dataString);
+	const int expectedEntities = 2;
+	vector<string> entities = Hall::extractEntitiesFromDataString(dataString, '|');
+	if (entities.size() < expectedEntities) throw ParseAttributeMismatchException(typeid(this).name(), expectedEntities, entities.size());
 
+	const int expectedSize = 3;
+    vector<string> attributes = Hall::extractAttributesFromDataString(entities[0]);
 	if (attributes.size() < expectedSize) throw ParseAttributeMismatchException(typeid(this).name(), expectedSize, attributes.size());
 
     this->id = stoi(attributes[0]);
@@ -168,7 +171,7 @@ void Hall::deserialize(string dataString) {
 	vector<vector<bool>> newSeating(noOfRows, vector<bool>(noOfCols, false));
 	this->seating = newSeating;
 
-    vector<string> seatingDataString = Hall::extractAttributesFromDataString(attributes[3], '|');
+    vector<string> seatingDataString = Hall::extractAttributesFromDataString(entities[1]);
     int i = 0;
     for (int r = 0; r < this->noOfRows; r++) {
         for (int c = 0; c < this->noOfCols; c++) {
