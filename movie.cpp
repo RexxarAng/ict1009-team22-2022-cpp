@@ -40,6 +40,7 @@ string Movie::serialize() {
     serializedString += "," + this->getDesc();
     serializedString += "," + this->getGenre();
     serializedString += "," + to_string(this->getDuration());
+    
     return serializedString;
 }
 
@@ -55,7 +56,11 @@ void Movie::deserialize(string dataString) {
     this->setTitle(attributes[1]);
     this->setDesc(attributes[2]);
     this->setDuration(stoi(attributes[3]));
+    this->setMaturity(stoi(attributes[4]));
     this->setGenre(attributes[5]);
+    this->setRating(stof(attributes[6]));
+    this->setMainCast(attributes[7]);
+    this->setLanguage(attributes[8]);
 }
 
 istream& operator>>(istream& in, Movie* newMovie)
@@ -67,11 +72,7 @@ istream& operator>>(istream& in, Movie* newMovie)
         bool isExist = false;
         cout << "Movie Name: ";
         getline(in, movieName);
-        if(movieName.find('"')){
-            cerr << "No double quotes allowed" << endl;
-            continue;
-        }
-        for (Movie* i : *movies) {
+        for(Movie* i : *movies) {
             if (movieName == i->getTitle()) {
                 cout << "Movie already exists";
                 isExist = true;
@@ -93,7 +94,6 @@ istream& operator>>(istream& in, Movie* newMovie)
             cin.ignore(256, '\n');
             cin >> movieDuration;
         }
-
         newMovie->setTitle(movieName);
         newMovie->setDesc(movieDesc);
         newMovie->setGenre(movieGenre);
