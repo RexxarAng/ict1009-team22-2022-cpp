@@ -57,8 +57,10 @@ string Show::serialize() {
 }
 
 void Show::deserialize(string dataString) {
+    const int expectedSize = 3;
     vector<string> attributes = Show::extractAttributesFromDataString(dataString, ';');
-    if (attributes.size() < 3) throw ParseAttributeMismatchException();
+
+    if (attributes.size() < expectedSize) throw ParseAttributeMismatchException(typeid(this).name(), expectedSize, attributes.size());
         this->movie.deserialize(attributes[0]);
     this->time = std::move(attributes[1]);
     this->hall.deserialize(attributes[2]);

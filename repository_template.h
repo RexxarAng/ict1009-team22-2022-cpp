@@ -5,33 +5,27 @@
 #include <sstream>
 #include <vector>
 #include "repository_exception.h"
+#include "helper.h"
 
 using namespace std;
 
-//Function Prototyping
-vector<string> readCSVRow(const string &row);
 
 class AbstractDataModel {
 protected:
     static vector<string> extractAttributesFromDataString(const string& dataString, char separator = ',') {
-        vector<string> attributes;
         string word;
-        stringstream ss(dataString);
-        if (separator == ','){
-            auto fields = readCSVRow(dataString); //returns a vector of strings
-            for(string i: fields){
-                attributes.push_back(i);
-            }
+        vector<string> attributes;
+        /*stringstream ss(dataString);
+        while (getline(ss, word, separator)) {
+            attributes.push_back(word);
+        }*/
+        auto fields = CSVReader::readCSVRow(dataString, separator); //returns a vector of strings
+        for (string i : fields) {
+            attributes.push_back(i);
         }
-        else{
-            while(getline(ss,word,separator)){
-                attributes.push_back(word);
-            }
-        }
-        
+
         return attributes;
     }
-
 public:
     virtual void deserialize(string) = 0;
     virtual string serialize() = 0;
