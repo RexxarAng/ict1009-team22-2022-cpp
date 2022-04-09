@@ -26,16 +26,14 @@ void ShowController::viewShows() {
             if (selectedShow == nullptr) {
                 break;
             }
-            cout << "You have selected " << selectedShow->getMovie()->getTitle() << " " << selectedShow->getTime() << endl;
-            selectedShow->showHallSeatingPlan();
+            ScreenUtility::clearScreen();
+            cout << selectedShow;
             ScreenUtility::pause();
-            
         }
     }
     else {
         cout << "No movies currently showing" << endl;
     }
-
     ScreenUtility::pause();
 }
 

@@ -6,10 +6,10 @@
 
 using namespace std;
 
-struct ParseException : public exception {
+struct ParseException : public runtime_error {
     
     ParseException(const string& source, const string& errorMessage) :
-        exception((errorMessage + " from '" + source + "'").c_str()) {}
+        runtime_error((errorMessage + " from '" + source + "'").c_str()) {}
 
 };
 

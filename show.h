@@ -26,6 +26,7 @@ public:
     Hall* getHall();
 	Movie* getMovie();
 	friend istream& operator>>(istream&, Show*);
+	friend ostream& operator<<(ostream&, Show*);
 	friend bool operator<(Show const&, Show const&);
     // AbstractDataModel
     string serialize() override;

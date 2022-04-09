@@ -85,6 +85,14 @@ istream& operator>>(istream& in, Show* newShow)
 	return in;
 }
 
+ostream& operator<<(ostream& out, Show* selectedShow)
+{
+    printColor(selectedShow->movie.getTitle(), 1);
+    out << " " << selectedShow->time << endl;
+    (&selectedShow->hall)->showSeatingPlan();
+    return out;
+}
+
 bool operator<(Show const& s1, Show const& s2) {
     return stoi(s1.time) < stoi(s2.time);
 }

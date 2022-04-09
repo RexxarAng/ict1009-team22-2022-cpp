@@ -27,7 +27,7 @@ void BookingController::bookMovies() {
 
 void BookingController::promptSeatSelection(Show* selectedShow) {
     while (true) {
-        selectedShow->showHallSeatingPlan();
+        cout << selectedShow;
         cout << "==============================" << endl;
         cout << "Book any seat numbers" << endl;
         cout << "q) Back" << endl;
@@ -64,5 +64,4 @@ void BookingController::promptSeatSelection(Show* selectedShow) {
             }
         }
     }
-   
 }
