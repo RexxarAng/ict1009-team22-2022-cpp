@@ -3,6 +3,7 @@
 
 #include "hall.h"
 #include "colors.h"
+#include "screen_utility.h"
 
 using namespace std;
 
@@ -59,6 +60,8 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 	}
 	cout << endl;
 	printLegend();
+	
+
 }
 
 bool Hall::bookSeat(int row, int column) {
@@ -137,13 +140,13 @@ string Hall::serialize() {
     serializedString += "," + to_string(this->noOfRows);
     serializedString += "," + to_string(this->noOfCols);
 
-    serializedString += ",";
+    serializedString += "|";
     int i = 0;
     for (int r = 0; r < this->noOfRows; r++) {
         for (int c = 0; c < this->noOfCols; c++) {
             if (this->seating[r][c]) serializedString += "1";
             else serializedString += "0";
-            serializedString += '|';
+            serializedString += ',';
         }
     }
 
@@ -151,21 +154,24 @@ string Hall::serialize() {
 }
 
 void Hall::deserialize(string dataString) {
-    vector<string> attributes = Hall::extractAttributesFromDataString(dataString);
+	const int expectedEntities = 2;
+	vector<string> entities = Hall::extractEntitiesFromDataString(dataString, '|');
+	if (entities.size() < expectedEntities) throw ParseAttributeMismatchException(typeid(this).name(), expectedEntities, entities.size());
 
-    cout << attributes.size() << endl;
-    if (attributes.size() < 4) throw ParseAttributeMismatchException();
+	const int expectedSize = 3;
+    vector<string> attributes = Hall::extractAttributesFromDataString(entities[0]);
+	if (attributes.size() < expectedSize) throw ParseAttributeMismatchException(typeid(this).name(), expectedSize, attributes.size());
 
     this->id = stoi(attributes[0]);
     this->noOfRows = stoi(attributes[1]);
     this->noOfCols = stoi(attributes[2]);
-    this->current_id = id + 1;
+    this->current_id = this->id + 1;
 
     // Create booking seating
 	vector<vector<bool>> newSeating(noOfRows, vector<bool>(noOfCols, false));
 	this->seating = newSeating;
 
-    vector<string> seatingDataString = Hall::extractAttributesFromDataString(attributes[3], '|');
+    vector<string> seatingDataString = Hall::extractAttributesFromDataString(entities[1]);
     int i = 0;
     for (int r = 0; r < this->noOfRows; r++) {
         for (int c = 0; c < this->noOfCols; c++) {
@@ -173,4 +179,36 @@ void Hall::deserialize(string dataString) {
             i++;
         }
     }
+}
+
+istream& operator>>(istream& in, Hall* newHall)
+{
+	int rows, cols;
+	cout << "Hall rows: ";
+	in >> newHall->noOfRows;
+	while (in.fail()) {
+		cout << "Invalid input, only accept numbers" << endl;
+		in.clear();
+		in.ignore(256, '\n');
+		ScreenUtility::pause();
+		cout << "Hall rows: ";
+		in >> newHall->noOfRows;
+	}
+	in.ignore(numeric_limits<streamsize>::max(), '\n');
+	cout << "Hall columns: ";
+	in >> newHall->noOfCols;
+	while (in.fail()) {
+		cout << "Invalid input, only accept numbers" << endl;
+		in.clear();
+		in.ignore(256, '\n');
+		ScreenUtility::pause();
+		cout << "Hall columns: ";
+		in >> newHall->noOfCols;
+	}
+	in.ignore(numeric_limits<streamsize>::max(), '\n');
+	vector<vector<bool>> newSeating(newHall->noOfRows, vector<bool>(newHall->noOfCols, false));
+	newHall->seating = newSeating;
+	newHall->current_id++;
+	newHall->id = newHall->current_id;
+	return in;
 }

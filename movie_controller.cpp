@@ -6,7 +6,6 @@
 
 #include "movie_controller.h"
 #include "menu.h"
-#include "file.h"
 #include "repository.h"
 
 extern Repository<Movie> movieRepository;
@@ -14,16 +13,33 @@ extern Repository<Show> showRepository;
 
 void MovieController::viewMovies() {
     extern vector<Movie*>* movies;
+    string maturity[] = {"G", "PG", "PG13", "NC16", "M18", "R21"};
     ScreenUtility::clearScreen();
     if (!movies->empty()) {
 
         while (true) {
             ScreenUtility::clearScreen();
             int movieIndex = 1;
-            cout << "Movies now showing: " << endl;
-            cout << "==============================" << endl;
+            cout << "=================================" << endl;
+            cout << "CHAW THEATERS MOVIES NOW SHOWING: " << endl;
+            cout << "=================================" << endl<<endl;
             for (Movie* i : *movies) {
-                cout << movieIndex << ") " << i->getTitle() << endl;
+                int matureRate = i->getMaturity();
+                if ((i->getMaturity() > 6) || (i->getMaturity() < 0)){
+                    cerr << "ERROR: Mature Ratings is out of range." << endl;
+                    matureRate = 0;
+                }
+                char buffer[10000];
+                
+                sprintf(buffer, "%d) %s\n\t%-4s || %-3dmins || %.1f/10 IMDb || %s",
+                        movieIndex,
+                        i->getTitle().c_str(),
+                        maturity[i->getMaturity()].c_str(),
+                        i->getDuration(),
+                        i->getRating(),
+                        i->getGenre().c_str());
+                cout << buffer;
+                cout << endl << endl;
                 movieIndex++;
             }
             cout << "To quit select: -1" << endl;
@@ -37,8 +53,10 @@ void MovieController::viewMovies() {
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //clear buffer before taking new
             if (selection > 0 && selection <= movies->size()) {
-                cout << "You have selected " << movies->at(selection - 1)->getTitle() << endl;
-                viewShowTimesByMovie(movies->at(selection - 1));
+                ScreenUtility::clearScreen();
+                Movie* selectedMovie = movies->at(selection - 1);
+                cout << selectedMovie; 
+                ScreenUtility::pause();
             }
             else if (selection == -1) {
                 break;
@@ -84,113 +102,17 @@ Movie* MovieController::promptMovieSelection() {
     
 }
 
-void MovieController::viewShowTimesByMovie(Movie* movie) {
-    unsigned int selection;
-
-    while (true) {
-        ScreenUtility::clearScreen();
-        cout << movie->getTitle() << endl;
-        cout << "==============================" << endl;
-        cout << "Today " << endl;
-        cout << "1) Timeslot 1" << endl;
-        cout << "2) Timeslot 2" << endl;
-        cout << "3) Timeslot 3" << endl;
-        cout << "Please selected the option:";
-
-        cin >> selection;
-        if (!cin.fail()) break;
-        cin.clear(); // get rid of failure state
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        printColor("ERROR -- You did not enter an integer\n", 2);
-        ScreenUtility::pause();
-    }
-    cout << "You have selected " << selection << endl;
-
-    // TODO: Mock showtime
-    Hall a(12, 12);
-    string movieName = movie->getTitle();
-    time_t now = time(0);
-    tm localtm = *localtime(&now);
-    Show s(movieName, "0800 hrs", a);
-    viewBookingByShowTime(&s);
-}
-
-void MovieController::viewBookingByShowTime(Show* showtime) {
-    string selection;
-
-    while (true) {
-        showtime->showHallSeatingPlan();
-
-        cout << "==============================" << endl;
-        cout << "Book any seat numbers" << endl;
-        cout << "q) Back" << endl;
-        cout << "Please select the option:";
-
-        cin >> selection;
-        if (cin.fail()) {
-            cin.clear(); // get rid of failure state
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            printColor("ERROR -- Invalid option\n", 2);
-            ScreenUtility::pause();
-        }
-        else if (selection == "q") {
-            ScreenUtility::clearScreen();
-            break;
-        }
-        else {
-            if (selection.size() < 2) {
-                printColor("ERROR -- Invalid seat number, please try again\n", 2);
-                ScreenUtility::pause();
-            }
-            int column = (int)(unsigned char)selection[0] - (int)('A');
-            int row = stoi(selection.substr(1, selection.size() - 1));
-
-            cout << "Booking " << column << ":" << row << endl;
-            if (showtime->getHall()->bookSeat(column, row)) {
-                printColor("You have booked " + selection + "\n");
-                ScreenUtility::pause();
-            }
-            else {
-                printColor("Invalid option : " + selection + ", Please try again.\n", 2);
-                ScreenUtility::pause();
-            }
-        }
-    }
-}
-
-
 void MovieController::addMovies() {
     extern vector<Movie*>* movies;
     vector<string> row;
-    string line, word, movieName, currentMovieName, movieDesc, movieGenre;
-    int movieDuration;
-    cout << "Adding Movies..." << endl;
+    string line, word;
     bool cont = true;
     while (cont) {
-        cout << "Movie Name: ";
-        getline(cin, movieName);
-        for (Movie* i : *movies) {
-            if (movieName == i->getTitle()) {
-                cout << "Movie already exists";
-                ScreenUtility::pause();
-                addMovies();
-            }
-
-        }
-        cout << "Movie Description: ";
-        getline(cin, movieDesc);
-        cout << "Movie Genre: ";
-        getline(cin, movieGenre);
-        cout << "Movie Duration(in mins): ";
-        cin >> movieDuration;
-        while (cin.fail()) {
-            cout << "Error" << endl;
-            cin.clear();
-            cin.ignore(256, '\n');
-            cin >> movieDuration;
-        }
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        Movie* newMovie = new Movie(movieName, movieDesc, movieGenre, movieDuration);
+        ScreenUtility::clearScreen();
+        MovieController::displayMovieList();
+        cout << "Adding Movies..." << endl;
+        Movie* newMovie = new Movie();
+        cin >> newMovie;
         movies->insert(movies->end(), newMovie);
         string input;
         cout << "Do you still want to add more movies(Y/N): ";
@@ -206,12 +128,14 @@ void MovieController::displayMovieList() {
     extern vector<Movie*>* movies;
     if (!movies->empty()) {
         int movieIndex = 1;
-        cout << "Movies now showing: " << endl;
+        cout << "==============================" << endl;
+        cout << "NOW SHOWING: " << endl;
         cout << "==============================" << endl;
         for (Movie* i : *movies) {
             cout << movieIndex << ") " << i->getTitle() << endl;
             movieIndex++;
         }
+        cout << endl;
     }
 }
 
@@ -243,7 +167,7 @@ void MovieController::removeMovies() {
             }
             cout << selectedMovie->getTitle() << " successfully deleted" << endl;
             for (auto& showPtr : *shows) {
-                if (showPtr->getTitle() == selectedMovie->getTitle()) {
+                if (showPtr->getMovie()->getTitle() == selectedMovie->getTitle()) {
                     delete showPtr;
                     showPtr = nullptr;
                 }

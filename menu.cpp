@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <sstream>
 #include "movie_controller.h"
 #include "hall_controller.h"
@@ -9,11 +10,11 @@
 #include "booking_controller.h"
 #include "movie.h"
 #include "menu.h"
+#include "screen_utility.h"
+using namespace std;
 
 void openMenu(MenuItem* p_menu, unsigned int item_quantity)
 {
-    /*This is a menu engine that takes in bunch of menu items, and the number of elements, then
-     prints out the items, followed by allowing the use to enter a selection. */
     unsigned int i = 0;
     // Display the menu
     for (i = 0; i < item_quantity; ++i)
@@ -42,11 +43,12 @@ void openMenu(MenuItem* p_menu, unsigned int item_quantity)
     }
 }
 
+
 MenuItem main_menu[] =
 {
     {1, "View Movies", MovieController::viewMovies},
-    {2, "Book Movies", BookingController::bookMovies},
-    {3, "View Halls", HallController::viewHalls},
+    {2, "View Showtimes", ShowController::viewShows},
+    {3, "Book Movies", BookingController::bookMovies},
     {4, "Admin", displayAdminMenu},
     {5, "Quit", ScreenUtility::quit}
 };
@@ -69,9 +71,10 @@ static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(adm
 void displayMainMenu() {
     while (true) {
         ScreenUtility::clearScreen();
-        cout << "Movie Booking System" << endl;
-        cout << "==============================" << endl;
-        cout << "Main Menu" << endl;
+        cout << "============================" << endl;
+        cout << "CHAW THEATERS BOOKING SYSTEM" << endl;
+        cout << "============================" << endl << endl;
+
         // Process the menu
         openMenu(&main_menu[0], main_menu_size);
     }
@@ -80,10 +83,9 @@ void displayMainMenu() {
 void displayAdminMenu() {
     while (true) {
         ScreenUtility::clearScreen();
-        cout << "Admin Movie Booking System" << endl;
-        cout << "==============================" << endl;
-        cout << "Admin Menu" << endl;
+        cout << "==================================" << endl;
+        cout << "CHAW THEATERS ADMIN BOOKING SYSTEM" << endl;
+        cout << "==================================" << endl << endl;
         openMenu(&admin_main_menu[0], admin_menu_size);
     }
 }
-

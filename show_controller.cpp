@@ -10,7 +10,6 @@
 #include "screen_utility.h"
 #include "show.h"
 #include "menu.h"
-#include "file.h"
 #include "repository.h"
 #include <regex>
 
@@ -27,7 +26,7 @@ void ShowController::viewShows() {
             if (selectedShow == nullptr) {
                 break;
             }
-            cout << "You have selected " << selectedShow->getTitle()  << " " << selectedShow->getTime() << endl;
+            cout << "You have selected " << selectedShow->getMovie()->getTitle() << " " << selectedShow->getTime() << endl;
             selectedShow->showHallSeatingPlan();
             ScreenUtility::pause();
             
@@ -50,6 +49,7 @@ void ShowController::addShows() {
     cout << "Adding Shows..." << endl;
     bool cont = true;
     while (cont) {
+        ScreenUtility::clearScreen();
         if (halls->empty()) {
             cout << "No available halls" << endl;
             ScreenUtility::pause();
@@ -68,20 +68,12 @@ void ShowController::addShows() {
         HallController::displayHallList();
         Hall* selectedHall = HallController::promptHallSelection();
         if (selectedHall == nullptr) break;
+        Show* newShow = new Show();
+        newShow->setHall(*selectedHall);
+        newShow->setMovie(*selectedMovie);
+        cin >> newShow;
 
-        string time;
-        cout << "Enter a time (HH:MM): ";
-        cin >> time;
-        while (cin.fail() || !regex_match(time, regex("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"))) {
-            cout << "Invalid input" << endl;
-            cin.clear();
-            cin.ignore(256, '\n');
-            cout << "Enter a time (HH:MM): ";
-            cin >> time;
-        }
-
-        Show* newShow = new Show(selectedMovie->getTitle(), time, *selectedHall);
-        shows->insert(shows->begin(), newShow);
+        shows->insert(shows->end(), newShow);
         string input;
         cout << "Do you still want to add more shows(Y/N): ";
         cin >> input;
@@ -95,10 +87,14 @@ void ShowController::addShows() {
 void ShowController::displayShowList() {
     extern vector<Show*>* shows;
     int movieIndex = 1;
-    cout << "Show times of movies: " << endl;
-    cout << "==============================" << endl;
+    cout << "=================================" << endl;
+    cout << "CHAW THEATERS MOVIE SHOWTIMES: " << endl;
+    cout << "=================================" << endl << endl;
+    sort(shows->begin(), shows->end(), [](const Show* s1, const Show* s2) {
+        return (*s1) < (*s2);
+    });
     for (Show* i : *shows) {
-        cout << movieIndex << ") " << i->getTitle() << " " << i->getTime() << endl;
+        cout << movieIndex << ") " << i->getMovie()->getTitle() << " " << i->getTime() << endl;
         movieIndex++;
     }
     cout << endl;

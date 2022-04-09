@@ -10,6 +10,8 @@ public:
 	static void quit();
 
 	static void pause();
+
+	static string promptAndSanitizeStringInput(string);
 };
 
 
