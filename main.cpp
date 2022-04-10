@@ -23,7 +23,7 @@ int main()
         ScreenUtility::pause();
     }
 
-    displayMainMenu();
+    Menu::displayMainMenu();
 
     ScreenUtility::clearScreen();
 

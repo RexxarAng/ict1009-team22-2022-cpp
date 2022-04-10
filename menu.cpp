@@ -43,32 +43,16 @@ void openMenu(MenuItem* p_menu, unsigned int item_quantity)
     }
 }
 
-
-MenuItem main_menu[] =
-{
-    {1, "View Movies", MovieController::viewMovies},
-    {2, "View Showtimes", ShowController::viewShows},
-    {3, "Book Movies", BookingController::bookMovies},
-    {4, "Admin", displayAdminMenu},
-    {5, "Quit", ScreenUtility::quit}
-};
-
-static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
-
-MenuItem admin_main_menu[] =
-{
-    {1, "Add Movies", MovieController::addMovies},
-    {2, "Remove Movies", MovieController::removeMovies},
-    {3, "Add Shows", ShowController::addShows},
-    {4, "Add Halls", HallController::addHalls},
-    {5, "Remove Halls", HallController::removeHalls},
-    {6, "Back", displayMainMenu},
-    {7, "Quit", ScreenUtility::quit}
-};
-
-static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
-
-void displayMainMenu() {
+void Menu::displayMainMenu() {
+    MenuItem main_menu[] =
+    {
+        {1, "View Movies", MovieController::viewMovies},
+        {2, "View Showtimes", ShowController::viewShows},
+        {3, "Book Movies", BookingController::bookMovies},
+        {4, "Admin", Menu::displayAdminMenu},
+        {5, "Quit", ScreenUtility::quit}
+    };
+    static const unsigned int main_menu_size = sizeof(main_menu) / sizeof(main_menu[0]);
     while (true) {
         ScreenUtility::clearScreen();
         cout << "============================" << endl;
@@ -80,7 +64,18 @@ void displayMainMenu() {
     }
 }
 
-void displayAdminMenu() {
+void Menu::displayAdminMenu() {
+    MenuItem admin_main_menu[] =
+    {
+        {1, "Add Movies", MovieController::addMovies},
+        {2, "Remove Movies", MovieController::removeMovies},
+        {3, "Add Shows", ShowController::addShows},
+        {4, "Add Halls", HallController::addHalls},
+        {5, "Remove Halls", HallController::removeHalls},
+        {6, "Back", Menu::displayMainMenu},
+        {7, "Quit", ScreenUtility::quit}
+    };
+    static const unsigned int admin_menu_size = sizeof(admin_main_menu) / sizeof(admin_main_menu[0]);
     while (true) {
         ScreenUtility::clearScreen();
         cout << "==================================" << endl;

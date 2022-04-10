@@ -65,29 +65,10 @@ void HallController::addHalls() {
     while (cont) {
         ScreenUtility::clearScreen();
         displayHallList();
-        /*cout << "Hall rows: ";
-        cin >> rows;
-        if (cin.fail()) {
-            cout << "Invalid input, only accept numbers" << endl;
-            cin.clear();
-            cin.ignore(256, '\n');
-        }
-        cout << "Hall columns: ";
-        cin >> cols;
-        while (cin.fail()) {
-            cout << "Invalid input, only accept numbers" << endl;
-            cin.clear();
-            cin.ignore(256, '\n');
-            cin >> cols;
-        }*/
+
         Hall *newHall = new Hall();
         cin >> newHall;
-        //if (cin.fail()) {
-        //    cin.clear();
-        //    cin.ignore(256, '\n');
-        //    ScreenUtility::pause();
-        //    continue;
-        //}
+
         halls->insert(halls->end(), newHall);
         string input;
         cout << "Do you still want to add more halls(Y/N): ";
@@ -98,7 +79,6 @@ void HallController::addHalls() {
     }
     hallRepository.save();
     ScreenUtility::pause();
-    displayAdminMenu();
 }
 
 void HallController::removeHalls() {
@@ -148,7 +128,6 @@ void HallController::removeHalls() {
     showRepository.save();
     hallRepository.save();
     ScreenUtility::pause();
-    displayAdminMenu();
 }
 
 Hall* HallController::promptHallSelection()

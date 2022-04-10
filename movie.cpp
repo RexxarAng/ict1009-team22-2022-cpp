@@ -127,7 +127,6 @@ istream& operator>>(istream& in, Movie* newMovie)
         newMovie->setRating(movieRating);
         newMovie->setMainCast(movieMainCast);
         newMovie->setLanguage(movieLanguage);
-        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return in;
     }
 }
