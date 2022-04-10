@@ -66,11 +66,11 @@ void Hall::showSeatingPlan(bool showColumnInformation, bool showRowInformation) 
 
 bool Hall::bookSeat(int row, int column) {
 	if (row < 0 || row >= noOfRows || column < 0 || column >= noOfCols) {
-		cout << "Invalid seat" << endl;
+		printColor("Invalid Seat\n", 2);
 		return false;
 	}
 	if (seating[row][column]) {
-		cout << "Seat is already occupied" << endl;
+		printColor("Seat is already occupied\n", 2);
 		return false;
 	}
 	seating[row][column] = true;

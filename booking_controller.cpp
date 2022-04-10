@@ -27,6 +27,7 @@ void BookingController::bookMovies() {
 
 void BookingController::promptSeatSelection(Show* selectedShow) {
     while (true) {
+        ScreenUtility::clearScreen();
         cout << selectedShow;
         cout << "==============================" << endl;
         cout << "Book any seat numbers" << endl;
@@ -48,19 +49,20 @@ void BookingController::promptSeatSelection(Show* selectedShow) {
             if (selection.size() < 2) {
                 printColor("ERROR -- Invalid seat number, please try again\n", 2);
                 ScreenUtility::pause();
+                continue;
             }
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             int column = (int)(unsigned char)selection[0] - (int)('A');
             int row = stoi(selection.substr(1, selection.size() - 1));
-
-            cout << "Booking " << column << ":" << row << endl;
             if (selectedShow->getHall()->bookSeat(column, row)) {
                 printColor("You have booked " + selection + "\n");
                 showRepository.save();
                 ScreenUtility::pause();
             }
             else {
-                printColor("Invalid option : " + selection + ", Please try again.\n", 2);
+                //printColor("Invalid option : " + selection + ", Please try again.\n", 2);
                 ScreenUtility::pause();
+                continue;
             }
         }
     }
