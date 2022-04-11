@@ -14,5 +14,5 @@ To run this project, run the executable directly:
 $ ./ict1009-team22-2022.cpp.exe
 ```
 
-Alternatively, install Visual Studio and run the solution directly.
+Alternatively, install Visual Studio 2022 and run the solution directly.
 
