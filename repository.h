@@ -49,11 +49,6 @@ bool Repository<T>::load() {
         for(string i: fields){
             columns.push_back(i);
         }
-            
-        /*stringstream s(line);
-        while (getline(s, word, ',')) {
-            columns.push_back(word);
-        }*/
 
         try {
             T* dataModel = new T();
@@ -68,10 +63,7 @@ bool Repository<T>::load() {
         if (dataSourceFile.eof())
             break;
     }
-  /*  cout << "Printing out all records" << endl;
-    for (T* i : this->records) {
-        cout << i->serialize() << endl;
-    }*/
+
     dataSourceFile.close();
     
     return true;
